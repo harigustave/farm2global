@@ -246,7 +246,7 @@
     color: var(--primary);
     background: #FFFFFF;
     font-size: 22px;
-    transition: .5s;
+    transition: 10s;
 }
 
 .testimonial-carousel .owl-nav .owl-prev:hover,
@@ -260,7 +260,7 @@
 }
 
 .blog-item img {
-    transition: .5s;
+    transition: 105s;
 }
 
 .blog-item:hover img {
