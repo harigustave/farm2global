@@ -31,6 +31,7 @@
 
 <body>
     <!-- Navbar Start -->
+<!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
         <a href="index.html" class="navbar-brand d-flex d-lg-none">
             <h1 class="m-0 display-4 text-secondary"><span class="text-white">Farm</span>2Global</h1>
@@ -44,12 +45,13 @@
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="service.html" class="nav-item nav-link">Services</a>
                 <a href="feature.html" class="nav-item nav-link">Features</a>
-		<a href="testimonial.html" class="nav-item nav-link active">Testimonial</a>
-		<a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                <a href="testimonial.html" class="nav-item nav-link">Testimonial</a>
+                <a href="contact.html" class="nav-item nav-link">Contact Us</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-			<i class="fa fa-user display-10 text-secondary" style="padding-right: 5px;"></i> My Account
-		    </a>
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">
+			            <i class="fa fa-user display-10 text-secondary" style="padding-right: 5px;"></i>
+                        My Account
+		            </a>
                     <div class="dropdown-menu m-0">
                         <a href="signup.html" class="dropdown-item">Account Register</a>
                         <a href="login.html" class="dropdown-item">Account Login</a>
@@ -65,45 +67,71 @@
         <div class="container py-5">
             <div class="row justify-content-start">
                 <div class="col-lg-8 text-center text-lg-start">
-                    <h4 class="display-5 text-white mb-md-4">TESTIMONIALS</h4>
+                    <h4 class="display-5 text-white mb-md-4">USER SIGN UP</h4>
                 </div>
             </div>
         </div>
     </div>
     <!-- Hero End -->
 
-
-    <!-- Testimonial Start -->
-    <div class="container-fluid bg-testimonial py-5 my-5">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="owl-carousel testimonial-carousel p-5">
-                        <div class="testimonial-item text-center text-white">
-                            <img class="img-fluid mx-auto p-2 border border-5 border-secondary rounded-circle mb-4" src="img/testimonial-1.jpg" alt="">
-                            <p class="fs-8" style="text-align:center">"Farm2Global has been a game-changer for my business. Through this platform, I've 				connected with buyers from all over the world who appreciate the quality and authenticity of my organic mangoes.".</p>
-                            <hr class="mx-auto w-25">
-                            <h5 class="text-white mb-0">Brigitte Mutoni</h5><span>Organic Mango Farmer, <b class="text-secondary">Rwanda</b></span>
+        <!-- Services Start -->
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                            <h6 class="display-7"><u>WHY CREATE ACCOUNT?</u></h6>
                         </div>
-                        <div class="testimonial-item text-center text-white">
-                            <img class="img-fluid mx-auto p-2 border border-5 border-secondary rounded-circle mb-4" src="img/testimonial-2.jpg" alt="">
-                            <p class="fs-8">Joining Farm2Global was one of the best decisions I made for my olive farm. The platform's marketing strategy 				and dedicated customer service have helped me reach international markets I never thought possible. </p>
-                            <hr class="mx-auto w-25">
-                            <h5 class="text-white mb-0">Bertin Mwambuka</h5><span>Olive Grower, <b class="text-secondary">Kenya</b></span>
-                        </div>
-			<div class="testimonial-item text-center text-white">
-                            <img class="img-fluid mx-auto p-2 border border-5 border-secondary rounded-circle mb-4" src="img/testimonial-3.jpg" alt="">
-                            <p class="fs-8">Farm2Global has been an incredible resource for sourcing high-quality, unique produce for my store. The 					platform's thorough verification process gives me confidence in the authenticity of farmers and quality of the products. It 				has helped in establishing strong relationships with reliable farmers.</p>
-                            <hr class="mx-auto w-25">
-                            <h5 class="text-white mb-0">Gustave Harintwari</h5><span>Importer of Specialty Fruits, <b class="text-secondary">USA</b></span>
+                        <p class="mb-4" style="text-align: left;">
+                            As a new user, famer or buyer, account creation plays crucial role for our platform to keep track of active users.
+                            In additon, registered user is granted more privilege than before. 
+                            User's personal information are kept secure in our platform. 
+                        </p>
+                        <a href="contact.html" class="btn btn-secondary py-md-3 px-md-5">Contact Us</a>
+                        <p class="mt-5">
+                           <span class="text-dark">Already Have Account?</span>
+                           <a class="text-decoration-underline" href="login.html" style="color: red;"> Proceed to Login</a> 
+                        </p>
+                    </div>
+                    <div class="col-lg-8 col-md-6">
+                        <div class="bg-primary h-100 p-5">
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-12 text-center mb-3">
+                                        <h4 class="display-7 text-secondary">
+                                            <u>CREATE NEW ACCOUNT</u>
+                                        </h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" name="user_type" class="user_type" id="user_type1" value="farmer"> 
+                                        <label for="user_type1" class="text-white">I am a Farmer</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" name="user_type" class="user_type" id="user_type2" value="buyer"> 
+                                        <label for="user_type2" class="text-white">I am a Buyer</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-0 px-4" placeholder="Firstname" style="height: 55px;">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-0 px-4" placeholder="Lastname" style="height: 55px;">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-0 px-4" placeholder="Phone number" style="height: 55px;">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="password" class="form-control bg-light border-0 px-4" placeholder="Password" style="height: 55px;">
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-secondary w-100 py-3" type="submit">Sign Up</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Testimonial End -->
-    
 
     <!-- Footer Start -->
     <div class="container-fluid bg-footer bg-primary text-white my-0">
@@ -165,12 +193,7 @@
         </div>
     </div>
     <!-- Footer End -->
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-secondary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
+     
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
