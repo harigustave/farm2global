@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Famer Dashboard</title>
+    <title>Edit Crop</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -38,10 +38,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="farmerdashboard.html" class="nav-item nav-link active">MY PROFILE</a>
+                <a href="farmerdashboard.html" class="nav-item nav-link">MY PROFILE</a>
                 <a href="editprofile.html" class="nav-item nav-link">EDIT PROFILE</a>
                 <a href="addcrop.html" class="nav-item nav-link">ADD CROP</a>
-                <a href="editcrop.html" class="nav-item nav-link">EDIT CROP</a>
+                <a href="editcrop.html" class="nav-item nav-link active">EDIT CROP</a>
 		        <a href="deletecrop.html" class="nav-item nav-link">DELETE CROP</a> 
             </div>
         </div>
@@ -61,60 +61,44 @@
     </nav>
     <!-- Navbar End -->
 
-    <div class="container-fluid py-5 mt-2">
+    <div class="container-fluid py-3">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-4 col-md-6 py-3" style="border-radius: 10px;border-left: 2px solid darkgray;border-bottom: 2px solid darkgray; border-top: 2px solid darkgray;border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
-                    <h4 class="text-center text-primary">Personal Information</h4>
-                    <hr style="height: 5px;"/>
-                    <p>
-                        <b style="color: black;">First name:</b> <span>Gustave</span>
-                    </p>
-                    <p>
-                        <b style="color: black;">Last name:</b> <span>Harintwari</span>
-                    </p>
-                    <p>
-                        <b style="color: black;">Country:</b> <span>Rwanda</span>
-                    </p>
-                    <p>
-                        <b style="color: black;">Phone number:</b> <span>0782256907</span>
-                    </p>
-                    <p>
-                        <b style="color: black;">National ID:</b> <span>1199380132677176</span>
-                    </p>
-                    <p>
-                        <b style="color: black;">Unique ID Number:</b> <span>---------------------</span>
-                    </p>
+                <div class="col-lg-4 col-md-6 py-5">
+                    <img src="img/editcrop.svg" width="200px" height="auto" class="mt-5"/>
                 </div>
-                <div class="col-lg-8 col-md-6 py-3" style="border-radius: 10px;border-left: 2px solid darkgray;border-right: 2px solid darkgray;border-bottom: 2px solid darkgray; border-top: 2px solid darkgray;border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
-                    <h4 class="text-center text-primary">Crops Information</h4>
-                    <hr style="height: 5px;"/>
-                    <div class="container-fluid py-5">
-                        <div class="container">
-                            <div class="row g-5">
-                                <div class="col-lg-6 col-md-6 py-3" style="background-color: rgb(236, 233, 233);padding-top: 20px;padding-bottom: 20px;">
-                                    <h5 class="text-center text-secondary">Cotton</h5>
-                                    <hr/>
-                                    <p style="font-size: 14px;">
-                                        <b style="color: black;">Harvest Season(s):</b> <span>Spring</span>
-                                    </p>
-                                    <p style="font-size: 14px;">
-                                        <b style="color: black;">Quantity/Season:</b> <span>236,000Kg</span>
-                                    </p>
+                <div class="col-lg-4 col-md-6">
+                    <div class="p-5" style="border-radius: 10px; border: 2px solid silver;">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-12 text-center mb-0">
+                                    <h5 class="display-7 text-dark">
+                                        <u>EDIT CROP</u>
+                                    </h5>
                                 </div>
-                                <div class="col-lg-6 col-md-6 py-3" style="background-color: rgb(236, 233, 233);padding-top: 20px;padding-bottom: 20px;">
-                                    <h5 class="text-center text-secondary">Rice</h5>
-                                    <hr/>
-                                    <p style="font-size: 14px;">
-                                        <b style="color: black;">Harvest Season(s):</b> <span>Summer, Fall</span>
-                                    </p>
-                                    <p style="font-size: 14px;">
-                                        <b style="color: black;">Quantity/Season:</b> <span>125,000Kg</span>
-                                    </p>
+                                <div class="col-12">
+                                    <label for="nid" class="text-dark" style="font-weight: bold;font-size: 14px;">Crop Name:</label>
+                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;">
+                                </div>
+                                <div class="col-12">
+                                    <label for="nid" class="text-dark" style="font-weight: bold;font-size: 14px;">Harvest Seasons:</label>
+                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;">
+                                </div>
+                                <div class="col-12">
+                                    <label for="nid" class="text-dark" style="font-weight: bold;font-size: 14px;">Quantity/Season(Kg):</label>
+                                    <input type="number" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;">
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-secondary w-100 py-3 text-white" type="submit" style="border-radius: 10px;">
+                                            Submit
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                    </div>        
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+
                 </div>
             </div>
         </div>

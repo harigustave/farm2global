@@ -29,7 +29,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
     <!-- Navbar Start -->
 <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
@@ -66,53 +66,57 @@
         <div class="container-fluid py-5">
             <div class="container">
                 <div class="row g-5">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="mb-3">
-                            <h6 class="display-7"><u>WHY CREATE ACCOUNT?</u></h6>
-                        </div>
-                        <p class="mb-4" style="text-align: left;">
-                            As a new user, famer or buyer, account creation plays crucial role for our platform to keep track of active users.
-                            In additon, registered user is granted more privilege than before. 
-                            User's personal information are kept secure in our platform. 
-                        </p>
-                        <a href="contact.html" class="btn btn-secondary py-md-3 px-md-5">Contact Us</a>
+                    <div class="col-lg-4 col-md-6 py-5">
+                        <img src="img/register.svg" width="200px" height="auto" class="mt-2"/>
                         <p class="mt-5">
-                           <span class="text-dark">Already Have Account?</span>
+                           <span class="text-primary">Already Have Account?</span>
                            <a class="text-decoration-underline" href="login.html" style="color: red;"> Proceed to Login</a> 
                         </p>
                     </div>
                     <div class="col-lg-8 col-md-6">
-                        <div class="bg-primary h-100 p-5">
+                        <div class="h-100 p-5" style="border-radius: 10px; border: 2px solid silver;">
                             <form>
                                 <div class="row g-3">
                                     <div class="col-12 text-center mb-3">
-                                        <h4 class="display-7 text-secondary">
-                                            <u>CREATE NEW ACCOUNT</u>
-                                        </h4>
+                                        <h5 class="display-7 text-dark">
+                                            <u>CREATE ACCOUNT</u>
+                                        </h5>
                                     </div>
                                     <div class="col-6">
                                         <input type="radio" name="user_type" class="user_type" id="user_type1" value="farmer"> 
-                                        <label for="user_type1" class="text-white">I am a Farmer</label>
+                                        <label for="user_type1" class="text-dark">I am a Farmer</label>
                                     </div>
                                     <div class="col-6">
                                         <input type="radio" name="user_type" class="user_type" id="user_type2" value="buyer"> 
-                                        <label for="user_type2" class="text-white">I am a Buyer</label>
+                                        <label for="user_type2" class="text-dark">I am a Buyer</label>
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" class="form-control bg-light border-0 px-4" placeholder="Firstname" style="height: 55px;">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Firstname" style="height: 40px;">
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" class="form-control bg-light border-0 px-4" placeholder="Lastname" style="height: 55px;">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Lastname" style="height: 40px;">
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" class="form-control bg-light border-0 px-4" placeholder="Phone number" style="height: 55px;">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Phone number" style="height: 40px;">
                                     </div>
                                     <div class="col-6">
-                                        <input type="password" class="form-control bg-light border-0 px-4" placeholder="Password" style="height: 55px;">
+                                        <input type="password" class="form-control bg-light border-1 px-4" placeholder="Password" style="height: 40px;">
                                     </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-secondary w-100 py-3" type="submit">Sign Up</button>
-                                    </div>
+                                    
+                                        <div class="col-3 my-0">
+                                           
+                                        </div>
+                                        <div class="col-6 my-0">
+                                            <button class="btn btn-secondary w-100 py-3 mt-5" type="submit" style="border-radius: 10px;">
+                                                <span style="font-weight: 50;">
+                                                    Sign Up
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="col-3 my-0">
+                                            
+                                        </div>
+                                    
                                 </div>
                             </form>
                         </div>
