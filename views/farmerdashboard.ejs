@@ -27,10 +27,10 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+<body style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;background-image: url('img/carousel-1.jpg')">
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex d-lg-none">
+        <a href="/index" class="navbar-brand d-flex d-lg-none">
             <h1 class="m-0 display-4 text-secondary"><span class="text-white">Farm</span>2Global</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -38,22 +38,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="farmerdashboard.html" class="nav-item nav-link active">MY PROFILE</a>
-                <a href="editprofile.html" class="nav-item nav-link">EDIT PROFILE</a>
-                <a href="addcrop.html" class="nav-item nav-link">ADD CROP</a>
-                <a href="editcrop.html" class="nav-item nav-link">EDIT CROP</a>
-		        <a href="deletecrop.html" class="nav-item nav-link">DELETE CROP</a> 
+                <a href="/farmerdashboard" class="nav-item nav-link active">MY PROFILE</a>
+                <a href="/editprofile" class="nav-item nav-link">EDIT PROFILE</a>
+                <a href="/addcrop" class="nav-item nav-link">ADD CROP</a>
+		        <a href="/deletecrop" class="nav-item nav-link">DELETE CROP</a> 
+                <a href="/contact" class="nav-item nav-link">CONTACT US</a> 
             </div>
         </div>
         <div class="nav-item dropdown" style="float: right;">
             <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
                 <i class="fa fa-user display-10 text-secondary" style="padding-right: 5px;"></i> 
                 <span style="color: white; font-size: 14px;text-decoration: underline;">
-                    Gustave Harintwari
+                    <%= user.firstname %> <%= user.lastname %>
                 </span>
             </a>
             <div class="dropdown-menu m-0">
-                <a href="login.html" class="dropdown-item">
+                <a href="/logout" class="dropdown-item">
                     Account Logout
                 </a>
             </div>
@@ -64,59 +64,59 @@
     <div class="container-fluid py-5 mt-2">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-4 col-md-6 py-3" style="border-radius: 10px;border-left: 2px solid darkgray;border-bottom: 2px solid darkgray; border-top: 2px solid darkgray;border-top-right-radius: 0px;border-bottom-right-radius: 0px;">
+                <div class="col-lg-5 col-md-6 py-3" style="border-color: white; border-style: dashed;">
                     <p class="text-center">
-                        <span class="text-primary" style="font-size: 20px;color: black;font-weight: bold;">Personal Information</span>
+                        <span style="font-size: 20px;color: rgb(71, 71, 70);font-weight: bold;">Farmer Information</span>
                     </p>
-                    <hr style="height: 5px;"/>
+                    <hr style="height: 5px; background-color: white;"/>
                     <p style="font-size: 14px;" class="pt-3">
-                        <b style="color: black;">First name:</b> <span>Gustave</span>
+                        <b style="color: white;">First name:</b> <span><%= user.firstname %></span>
                     </p>
                     <p style="font-size: 14px;">
-                        <b style="color: black;">Last name:</b> <span>Harintwari</span>
+                        <b style="color: white;">Last name:</b> <span><%= user.lastname %></span>
                     </p>
                     <p style="font-size: 14px;">
-                        <b style="color: black;">Country:</b> <span>Rwanda</span>
+                        <b style="color: white;">Country:</b> <span><%= user.country %></span>
                     </p>
                     <p style="font-size: 14px;">
-                        <b style="color: black;">Phone number:</b> <span>0782256907</span>
+                        <b style="color: white;">Phone number:</b> <span><%= user.phone %></span>
                     </p>
                     <p style="font-size: 14px;">
-                        <b style="color: black;">National ID:</b> <span>1199380132677176</span>
+                        <b style="color: white;">National ID:</b> <span><%= user.nationalid %></span>
                     </p>
                     <p style="font-size: 14px;">
-                        <b style="color: black;">Unique ID Number:</b> <span>---------------------</span>
+                        <b style="color: white;">Unique ID Number:</b> <span><%= user.digitalid %></span>
                     </p>
                 </div>
-                <div class="col-lg-8 col-md-6 py-3" style="border-radius: 10px;border-left: 2px solid darkgray;border-right: 2px solid darkgray;border-bottom: 2px solid darkgray; border-top: 2px solid darkgray;border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
+                <div class="col-lg-7 col-md-6 py-3" style="border-color: white; border-style: dashed;border-left: none;">
                     <p class="text-center">
-                        <span class="text-primary" style="font-size: 20px;color: black;font-weight: bold;">Crops Information</span>
+                        <span style="font-size: 20px;color: rgb(71, 71, 70);font-weight: bold;">Crops Information</span>
                     </p>
-                    <hr style="height: 5px;"/>
+                    <hr style="height: 5px;background-color: white;"/>
                     <div class="container-fluid py-5">
                         <div class="container">
                             <div class="row g-5">
                                 <div class="col-lg-6 col-md-6 py-3" style="background-color: rgb(236, 233, 233);padding-top: 20px;padding-bottom: 20px;">
                                     <p class="text-center">
-                                        <span class="text-secondary" style="font-size: 18px;font-weight: bold;">Cotton</span>
+                                        <span class="text-primary" style="font-size: 18px;font-weight: bold;">Cotton</span>
                                     </p>
                                     <hr/>
-                                    <p style="font-size: 14px;">
+                                    <p style="font-size: 13px;">
                                         <b style="color: black;">Harvest Season(s):</b> <span>Spring</span>
                                     </p>
-                                    <p style="font-size: 14px;">
+                                    <p style="font-size: 13px;">
                                         <b style="color: black;">Quantity/Season:</b> <span>236,000Kg</span>
                                     </p>
                                 </div>
                                 <div class="col-lg-6 col-md-6 py-3" style="background-color: rgb(236, 233, 233);padding-top: 20px;padding-bottom: 20px;">
                                     <p class="text-center">
-                                        <span class="text-secondary" style="font-size: 18px;font-weight: bold;">Rice</span>
+                                        <span class="text-primary" style="font-size: 18px;font-weight: bold;">Rice</span>
                                     </p>
                                     <hr/>
-                                    <p style="font-size: 14px;">
+                                    <p style="font-size: 13px;">
                                         <b style="color: black;">Harvest Season(s):</b> <span>Summer, Fall</span>
                                     </p>
-                                    <p style="font-size: 14px;">
+                                    <p style="font-size: 13px;">
                                         <b style="color: black;">Quantity/Season:</b> <span>125,000Kg</span>
                                     </p>
                                 </div>
@@ -129,9 +129,9 @@
     </div>
     
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-white py-4">
+    <div class="container-fluid bg-dark text-white py-3">
         <div class="container text-center">
-            <p class="mb-0">&copy; <a class="text-secondary" href="#">farm2global.rw</a>. All Rights Reserved</p>
+            <p style="font-size: 13px;" class="mb-0">&copy; <a class="text-secondary" href="#">farm2global.rw</a>. All Rights Reserved</p>
         </div>
     </div>
     <!-- Footer End -->

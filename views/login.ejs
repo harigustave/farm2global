@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <title>Farm2Global</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -29,11 +27,11 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+<body style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;background-image: url('img/carousel-1.jpg')">
     <!-- Navbar Start -->
 <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex d-lg-none">
+        <a href="/index" class="navbar-brand d-flex d-lg-none">
             <h1 class="m-0 display-4 text-secondary"><span class="text-white">Farm</span>2Global</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -41,20 +39,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
-                <a href="feature.html" class="nav-item nav-link">Features</a>
-                <a href="testimonial.html" class="nav-item nav-link">Testimonial</a>
-                <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                <a href="/index" class="nav-item nav-link">Home</a>
+                <a href="/about" class="nav-item nav-link">About</a>
+                <a href="/service" class="nav-item nav-link">Services</a>
+                <a href="/feature" class="nav-item nav-link">Features</a>
+                <a href="/testimonial" class="nav-item nav-link">Testimonial</a>
+                <a href="/contact" class="nav-item nav-link">Contact Us</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">
 			            <i class="fa fa-user display-10 text-secondary" style="padding-right: 5px;"></i>
                         My Account
 		            </a>
                     <div class="dropdown-menu m-0">
-                        <a href="signup.html" class="dropdown-item">Account Register</a>
-                        <a href="login.html" class="dropdown-item">Account Login</a>
+                        <a href="/signup" class="dropdown-item">Account Register</a>
+                        <a href="/login" class="dropdown-item">Account Login</a>
                     </div>
                 </div>  
             </div>
@@ -62,44 +60,45 @@
     </nav>
     <!-- Navbar End -->
 
-
         <!-- Services Start -->
-        <div class="container-fluid py-5 mb-3">
+        <div class="container-fluid py-5">
             <div class="container">
                 <div class="row g-5">
-                    
                     <div class="col-lg-4 col-md-6">
-                        <img src="img/register.svg" width="200px" height="auto" class="mt-5"/>
+                        <img src="img/register.svg" width="200px" height="auto" class="mt-2"/>
                         <p class="mt-5">
-                            <a class="text-decoration-underline text-primary" href="signup.html">Register Here</a>
-                                <span style="color: black;font-weight: bold;">OR</span>
-                            <a class="text-decoration-underline text-primary" href="login.html"> Login Here</a> 
+                            <a class="text-decoration-underline text-white" href="/signup">Register Here</a>
+                                <span style="color: orange;font-weight: bold;">OR</span>
+                            <a class="text-decoration-underline text-white" href="/resetpass"> Reset Password Here</a> 
                         </p>
                     </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="h-100 p-5" style="border-radius: 10px; border: 2px solid silver;">
-                            <form>
+                    <div class="col-lg-4 col-md-6 mt-5">
+                        <div class="h-100 px-5 pt-3 pb-3 mb-4" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
+                            <form action="/login" method="post">
                                 <div class="row g-3">
-                                    <div class="col-12 text-center mb-3">
+                                    <div class="col-12 text-center mb-3 pt-3">
                                         <!-- <h5 class="display-7 text-dark"> -->
-                                            <u style="font-size: 18px;color: black;font-weight: bold;">RESET PASSWORD</u>
+                                            <u style="font-size: 18px;font-weight: bold;color: rgb(71, 71, 70)">ACCOUNT LOGIN</u>
                                         <!-- </h5> -->
                                     </div>
                                     <div class="col-12">
-                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Phone number" style="height: 55px;">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Phone number" name="phonenumber" style="height: 55px;" required>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-secondary w-100 py-3" type="submit" style="border-radius: 10px;">Send Password</button>
+                                        <input type="password" class="form-control bg-light border-1 px-4" placeholder="Password" name="password" style="height: 55px;" required>
                                     </div>
-				                    <div class="col-12 py-0">
-                                        <span></span>
+                                    <div class="col-12 mt-4">
+                                        <button class="btn btn-secondary w-100 py-3" type="submit" style="border-radius: 10px;">
+                                                Sign In
+                                        </button>
                                     </div>
+                                    <!-- <div class="col-lg-12 col-md-6 text-center alert alert-danger "> -->
+                                        <!-- <strong style="font-size: 10px;">Phone Number Not Found</strong> -->
+                                    <!-- </div> -->
                                 </div>
                             </form>
                         </div>
                     </div>
-
                     <div class="col-lg-4 col-md-6">
 
                     </div>
@@ -109,7 +108,7 @@
 
     <div class="container-fluid bg-dark text-white py-4">
         <div class="container text-center">
-            <p class="mb-0">&copy; <a class="text-secondary fw-bold" href="#">farm2global.rw</a>. All Rights Reserved</p>
+            <p style="font-size: 14px;" class="mb-0">&copy; <a class="text-secondary" href="#">farm2global.rw</a>. All Rights Reserved</p>
         </div>
     </div>
     <!-- Footer End -->

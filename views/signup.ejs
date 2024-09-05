@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <title>Farm2Global</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -29,11 +27,10 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+<body style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;background-image: url('img/carousel-1.jpg')">
     <!-- Navbar Start -->
-<!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex d-lg-none">
+        <a href="/index" class="navbar-brand d-flex d-lg-none">
             <h1 class="m-0 display-4 text-secondary"><span class="text-white">Farm</span>2Global</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -41,20 +38,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
-                <a href="feature.html" class="nav-item nav-link">Features</a>
-                <a href="testimonial.html" class="nav-item nav-link">Testimonial</a>
-                <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                <a href="/index" class="nav-item nav-link">Home</a>
+                <a href="/about" class="nav-item nav-link">About</a>
+                <a href="/service" class="nav-item nav-link">Services</a>
+                <a href="/feature" class="nav-item nav-link">Features</a>
+                <a href="/testimonial" class="nav-item nav-link">Testimonial</a>
+                <a href="/contact" class="nav-item nav-link">Contact Us</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">
 			            <i class="fa fa-user display-10 text-secondary" style="padding-right: 5px;"></i>
                         My Account
 		            </a>
                     <div class="dropdown-menu m-0">
-                        <a href="signup.html" class="dropdown-item">Account Register</a>
-                        <a href="login.html" class="dropdown-item">Account Login</a>
+                        <a href="/signup" class="dropdown-item">Account Register</a>
+                        <a href="/login" class="dropdown-item">Account Login</a>
                     </div>
                 </div>  
             </div>
@@ -68,77 +65,73 @@
                 <div class="row g-5">
                     <div class="col-lg-4 col-md-6 py-5">
                         <img src="img/register.svg" width="200px" height="auto" class="mt-5"/>
-                        <p class="mt-5">
-                           <span class="text-dark" style="font-weight: bold;">Already Have Account?</span>
-                           <a class="text-decoration-underline text-primary" href="login.html"> Proceed to Login</a> 
+                        <p class="mt-3">
+                           <span class="text-secondary" style="font-weight: bold;">Already Have Account?</span>
+                           <a class="text-decoration-underline text-white" href="/login"> Proceed to Login</a> 
                         </p>
                     </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="h-100 px-5 py-4" style="border-radius: 10px; border: 2px solid silver;">
-                            <form>
+                    <div class="col-lg-8 col-md-6">
+                        <div class="h-100 px-5 py-4" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
+                            <form action="/signup" method="post">
                                 <div class="row g-3">
-                                    <div class="col-12 text-center mb-1">
+                                    <div class="col-12 text-center mb-3 mt-3">
                                         <!-- <h5 class="display-7 text-dark"> -->
-                                            <u style="font-size: 18px;color: black;font-weight: bold;">CREATE ACCOUNT</u>
+                                            <u style="font-size: 18px;color: rgb(71, 71, 70);font-weight: bold;">CREATE ACCOUNT</u>
                                         <!-- </h5> -->
                                     </div>
-                                    <div class="col-6 text-center">
+                                    <!-- <div class="col-6 text-center">
                                         <input type="radio" name="user_type" class="user_type" id="user_type1" value="farmer"> 
                                         <label for="user_type1" class="text-dark">I am a Farmer</label>
                                     </div>
                                     <div class="col-6 text-center">
                                         <input type="radio" name="user_type" class="user_type" id="user_type2" value="buyer"> 
                                         <label for="user_type2" class="text-dark">I am a Buyer</label>
+                                    </div> -->
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Firstname" style="height: 50px;" name="firstname" required>
                                     </div>
-                                    <div class="col-12">
-                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Firstname" style="height: 40px;">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Lastname" style="height: 50px;" name="lastname" required>
                                     </div>
-                                    <div class="col-12">
-                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Lastname" style="height: 40px;">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Nationality" style="height: 50px;" name="country" required>
                                     </div>
-                                    <div class="col-12">
-                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Phone number" style="height: 40px;">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="National ID" style="height: 50px;" name="nid" required>
                                     </div>
-                                    <div class="col-12">
-                                        <input type="password" class="form-control bg-light border-1 px-4" placeholder="Password" style="height: 40px;">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control bg-light border-1 px-4" placeholder="Phone number" style="height: 50px;" name="phonenumber" required>
                                     </div>
-                                    
-                                        <!-- <div class="col-3 my-0">
-                                           
-                                        </div> -->
-                                        <!-- <div class="col-12 my-0"> -->
-                                            <div class="col-4 my-0">
-                                            
-                                            </div>
-                                            <div class="col-4 my-0">
-                                                <button class="btn btn-secondary w-100 py-3 mt-3" type="submit" style="border-radius: 10px;">
-                                                    <span style="font-weight: 50;">
-                                                        Sign Up
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="col-4 my-0">
-                                            
-                                            </div>
-                                        <!-- </div> -->
-                                        <div class="col-3 my-0">
-                                            
-                                        </div>
-                                    
+                                    <div class="col-6">
+                                        <input type="password" class="form-control bg-light border-1 px-4" placeholder="Password" style="height: 50px;" name="password" required>
+                                    </div>
+                                    <div class="col-3 my-0">
+
+                                    </div>
+                                    <div class="col-6 my-0">
+                                        <button class="btn btn-secondary w-100 py-3 mt-4" type="submit" style="border-radius: 10px;">
+                                            <span style="font-weight: 50;">
+                                                Sign Up
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="col-3 my-0">
+
+                                    </div>   
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6">
+                    <!-- <div class="col-lg-4 col-md-6"> -->
 
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
 
     <div class="container-fluid bg-dark text-white py-4">
         <div class="container text-center">
-            <p class="mb-0">&copy; <a class="text-secondary" href="#">farm2global.rw</a>. All Rights Reserved</p>
+            <p style="font-size: 14px;" class="mb-0">&copy; <a class="text-secondary" href="#">farm2global.rw</a>. All Rights Reserved</p>
         </div>
     </div>
     <!-- Footer End -->
