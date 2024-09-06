@@ -32,10 +32,10 @@ app.use(express.urlencoded({extended:false}))
 app.post("/signup", async (req,res)=>{
     try{
         const hashedpassword=await bcrypt.hash(req.body.password,10)
-        firstname=req.body.firstname
-        lastname=req.body.lastname
+        firstname=(req.body.firstname).toUpperCase()
+        lastname=(req.body.lastname).toUpperCase()
         phonenumber=req.body.phonenumber
-        country=req.body.country
+        country=(req.body.country).toUpperCase()
         nid=req.body.nid
 
         const query = 'INSERT INTO farmers(firstname, lastname, phone, passwd, country, nationalid, digitalid) VALUES ($1, $2, $3, $4, $5, $6, $7)';
@@ -193,7 +193,7 @@ app.post('/addcrop', (req,res)=>{
         seasons=fall+" "+summer+" "+spring
         seasons=seasons.trim()
         
-        croname=req.body.cpname
+        croname=(req.body.cpname).toUpperCase()
 
         seasonqty=req.body.qty
 
@@ -219,12 +219,10 @@ app.post('/deletecrop', (req,res)=>{
     try{
         contact=req.session.loggedInUser.phone
 
-        croname=req.body.cpname
+        croname=(req.body.cpname).toUpperCase()
         croname=croname.charAt(0).toUpperCase()+ croname.slice(1)
 
         query= 'SELECT * FROM crops WHERE ownercontact = $1 AND cropname = $2';
-
-        // const values=[contact,croname]
 
         client.query(query, [contact,croname], (err, res) => {
             if (err) {
