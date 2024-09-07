@@ -168,6 +168,11 @@ app.post('/editprofile', (req,res)=>{
     }
 })
 
+app.post('/viewcrops', (req,res)=>{
+
+
+})
+
 app.post('/addcrop', (req,res)=>{
     try{
         contact=req.session.loggedInUser.phone
@@ -219,10 +224,12 @@ app.post('/deletecrop', (req,res)=>{
     try{
         contact=req.session.loggedInUser.phone
 
-        croname=(req.body.cpname).toUpperCase()
-        croname=croname.charAt(0).toUpperCase()+ croname.slice(1)
+        croname=req.body.cpname
+        croname=croname.toUpperCase()
 
         query= 'SELECT * FROM crops WHERE ownercontact = $1 AND cropname = $2';
+
+        // const values=[contact,croname]
 
         client.query(query, [contact,croname], (err, res) => {
             if (err) {
@@ -283,8 +290,70 @@ app.get('/feature', (req,res)=>{
     res.render("feature.ejs")
 })
 
-app.get('/cotton', (req,res)=>{
-    res.render("cotton.ejs")
+app.get('/cotton', (req,rest)=>{
+    crops=undefined
+        try{
+            cropname="COTTON"
+    
+            query= 'SELECT * FROM crops WHERE cropname = $1';
+    
+            // const values=[contact,croname]
+    
+            client.query(query, [cropname], (err, res) => {
+                if (err) {
+                  console.error('Error executing query', err.stack);
+                } else {
+                  if (res.rowCount > 0) {
+                    req.session.crops=res.rows
+                    crops=req.session.crops
+                    rest.render("cotton.ejs",{crops})
+                  } else {
+                    req.session.crops=res.rows
+                    crops=req.session.crops
+                    user=req.session.loggedInUser
+                    console.log("You do not have crops in our Database")
+                    rest.render("cotton.ejs",{crops})
+                  }
+                }
+                // client.end();
+              });
+        }catch(e){
+            console.log(e)
+            rest.redirect("/index")
+        }
+})
+
+app.get('/coffee', (req,rest)=>{
+    crops=undefined
+        try{
+            cropname="COFFEE"
+    
+            query= 'SELECT * FROM crops WHERE cropname = $1';
+    
+            // const values=[contact,croname]
+    
+            client.query(query, [cropname], (err, res) => {
+                if (err) {
+                  console.error('Error executing query', err.stack);
+                } else {
+                  if (res.rowCount > 0) {
+                    req.session.crops=res.rows
+                    crops=req.session.crops
+                    rest.render("coffee.ejs",{crops})
+                  } else {
+                    req.session.crops=res.rows
+                    crops=req.session.crops
+                    user=req.session.loggedInUser
+                    console.log("You do not have crops in our Database")
+                    rest.render("coffee.ejs",{crops})
+                  }
+                }
+                // client.end();
+              });
+        }catch(e){
+            console.log(e)
+            rest.redirect("/index")
+        }
 })
 
 app.get('/testimonial', (req,res)=>{
@@ -319,6 +388,45 @@ app.get('/editprofile', (req,res)=>{
         console.log('No user logged in.');
     }
     res.render("editprofile.ejs",{user:req.session.loggedInUser})
+})
+
+app.get('/viewcrops', (req,rest)=>{
+    crops=undefined
+    if (req.session.loggedInUser) {
+        try{
+            contact=req.session.loggedInUser.phone
+    
+            query= 'SELECT * FROM crops WHERE ownercontact = $1';
+    
+            // const values=[contact,croname]
+    
+            client.query(query, [contact], (err, res) => {
+                if (err) {
+                  console.error('Error executing query', err.stack);
+                } else {
+                  if (res.rowCount > 0) {
+                    req.session.crops=res.rows
+                    crops=req.session.crops
+                    user=req.session.loggedInUser
+                    rest.render("viewcrops.ejs",{user,crops})
+                  } else {
+                    req.session.crops=res.rows
+                    crops=req.session.crops
+                    user=req.session.loggedInUser
+                    console.log("You do not have crops in our Database")
+                    rest.render("viewcrops.ejs",{user,crops})
+                  }
+                }
+                // client.end();
+              });
+        }catch(e){
+            console.log(e)
+            rest.redirect("/farmerdashboard")
+        }
+      } else {
+        console.log('No user logged in.');
+        rest.redirect("/farmerdashboard")
+    }
 })
 
 app.get('/addcrop', (req,res)=>{

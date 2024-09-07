@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Edit Profile</title>
+    <title>Famer Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -39,8 +39,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
                 <a href="/farmerdashboard" class="nav-item nav-link">MY PROFILE</a>
-                <a href="/editprofile" class="nav-item nav-link active">EDIT PROFILE</a>
-                <a href="/viewcrops" class="nav-item nav-link">VIEW CROPS</a>
+                <a href="/editprofile" class="nav-item nav-link">EDIT PROFILE</a>
+                <a href="/viewcrops" class="nav-item nav-link active">VIEW CROPS</a>
                 <a href="/addcrop" class="nav-item nav-link">ADD CROP</a>
 		        <a href="/deletecrop" class="nav-item nav-link">DELETE CROP</a> 
             </div>
@@ -64,48 +64,55 @@
     <div class="container-fluid py-5">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-4 col-md-6">
-                    <img src="img/editprofile.svg" width="130px" height="auto" class="mt-5"/>
+                <div class="col-lg-3 col-md-6 py-5">
+                   <img src="img/viewcrops.svg" width="150px" height="auto" class="py-5 my-5 mx-3"/>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="p-5" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
-                        <form action="/editprofile" method="post">
-                            <div class="row g-3">
-                                <div class="col-12 text-center mb-1">
-                                    <!-- <h5 class="display-7 text-dark"> -->
-                                        <u style="font-size: 18px;color: rgb(215, 57, 0);font-weight: bold;">EDIT PROFILE</u>
-                                    <!-- </h5> -->
+                <div class="col-lg-6 col-md-6 border-primary py-4" style="border-style: dashed;border-radius: 10px;">
+                    <p class="text-center">
+                        <span style="font-size: 20px;color: rgb(215, 57, 0);font-weight: bold;">Available Crops Information</span>
+                    </p>
+                    <hr style="height: 3px;background-color: white;" class="mb-4"/>
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="row g-5">
+                                    <% if (crops.length>0) { %>
+                                        <% for (let i=0; i<crops.length;i++) { %>
+                                        <div class="col-lg-12 col-md-6 py-3" style="background-color: rgb(236, 233, 233);">
+                                                <p class="text-primary" style="font-size: 18px;font-weight: bold;">
+                                                    <%= crops[i].cropname %> 
+                                                </p>
+                                            <hr/>
+                                            <p style="font-size: 13px">
+                                                <b style="color: black;">Harvest Season(s):</b> <span>
+                                                    <%= crops[i].harvestseasons %>
+                                                </span><br />
+                                                <b style="color: black;">Quantity/Season:</b> <span>
+                                                    <%= crops[i].qtyperseason %>Kg
+                                                </span>
+                                            </p>
                                 </div>
-                                <div class="col-12">
-                                    <label for="country" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">Phone Number:</label>
-                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="phonenumber">
-                                </div>
-                                <div class="col-12">
-                                    <label for="nid" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">National ID:</label>
-                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="nid">
-                                </div>
-                                <!-- <div class="col-12">
-                                    <label for="picture" class="text-dark" style="font-weight: bold;font-size: 14px;">Farmer Picture:</label>
-                                    <input type="file" class="form-control border-1 px-4" placeholder="Upload Picture" style="height: 40px;" id="picture">
-                                </div> -->
-                                <div class="col-12 mt-3">
-                                    <button class="btn btn-secondary w-100 py-3 text-white" type="submit" style="border-radius: 10px;">
-                                            Submit
-                                    </button>
-                                </div>
+                                <% } %>
                             </div>
-                        </form>
-                    </div>
+                            <% } else { %>
+                                <div class="col-lg-12 col-md-6 text-center py-3 my-5" style="background-color: rgb(236, 233, 233);">
+                                    <p class="py-5">You do not have crops in our database.<br/>
+                                        To add one, click on "ADD CROP" on the menu.
+                                    </p>
+                                </div>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>        
                 </div>
-                <div class="col-lg-4 col-md-6">
-
+                <div class="col-lg-3 col-md-6">
+                   
                 </div>
             </div>
         </div>
     </div>
-    
+<!-- </div>  -->
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-white py-3">
+    <div class="container-fluid bg-dark text-white py-3 mt-3">
         <div class="container text-center">
             <p style="font-size: 13px;" class="mb-0">&copy; <a class="text-secondary" href="#">farm2global.rw</a>. All Rights Reserved</p>
         </div>
