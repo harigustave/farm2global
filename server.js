@@ -107,45 +107,6 @@ app.post('/login', async (req, rest) => {
   }
 })
 
-// Login endpoint
-app.post('/login', async (req, rest) => {
-  try {
-    phonenumber = req.body.phonenumber
-    password = req.body.password
-    const query = 'SELECT * FROM farmers WHERE phone = $1'
-    client.query(query, [phonenumber], (err, res) => {
-      if (err) {
-        console.error('Error executing query', err.stack)
-      } else {
-        if (res.rowCount > 0) {
-          const hashedPassword = res.rows[0].passwd
-          bcrypt.compare(password, hashedPassword, (err, result) => {
-            if (err) {
-              console.error('Error comparing passwords', err.stack)
-              rest.redirect('/login')
-            } else if (result > 0) {
-              console.log('Passwords match! User authenticated.')
-              req.session.loggedInUser = res.rows[0]
-              rest.redirect('/farmerdashboard')
-            } else {
-              console.log('Invalid Password')
-              rest.redirect('/login')
-              // Deny access
-            }
-          })
-        } else {
-          req.session.message = 'Invalid Phone Number'
-          console.log('Invalid Phone Number')
-          rest.redirect('/login')
-        }
-      }
-    })
-  } catch (e) {
-    console.log(e)
-    rest.redirect('/login')
-  }
-})
-
 //Edit Profile endpoint
 app.post('/editprofile', (req, res) => {
   try {
