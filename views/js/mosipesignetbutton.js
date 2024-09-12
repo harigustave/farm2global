@@ -27,7 +27,6 @@ const oidcConfig = {
   claims: JSON.parse(decodeURI(clientDetails.userProfileClaims)),
 };
 
-document.addEventListener('DOMContentLoaded', function() {
 window.SignInWithEsignetButton?.init({
   oidcConfig: oidcConfig,
   buttonConfig: {
@@ -38,4 +37,3 @@ window.SignInWithEsignetButton?.init({
   },
   signInElement: document.getElementById("sign-in-with-esignet"),
 });
-})
