@@ -81,9 +81,9 @@
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
         autoplay: true,
-        smartSpeed: 1000,
+        smartSpeed: 5000,
         items: 1,
-        dots: false,
+        dots: true,
         loop: true,
         nav : true,
         navText : [
@@ -91,6 +91,36 @@
             '<i class="bi bi-arrow-right"></i>'
         ],
     });
+
+    const oidcConfig = {
+        acr_values: 'mosip:idp:acr:generated-code mosip:idp:acr:biometrics mosip:idp:acr:static-code',
+        authorizeUri: 'https://esignet.collab.mosip.net/authorize',
+        claims_locales: 'en',
+        client_id: 'i0Ip_Xq4PlpS8wrk0tjjsP_mtmCdp91QSt2CcaoeaVg',
+        display: 'page',
+        max_age: 21,
+        nonce: 'ere973eieljznge2311',
+        prompt: 'consent',
+        redirect_uri: 'http://localhost:2000/farmerdashboard',
+        scope: 'openid profile',
+        state: 'eree2311',
+        ui_locales: 'en',
+        claims: {},
+      };
+      
+      console.log("Button is working")
+      
+      window.SignInWithEsignetButton?.init({
+        oidcConfig: oidcConfig,
+        buttonConfig: {
+          labelText: 'Sign in with e-Signet',
+          shape: 'soft_edges',
+          theme: 'filled_orange',
+          type: 'standard',
+          width:'220px'
+        },
+        signInElement: document.getElementById("sign-in-with-esignet"),
+      });
     
 })(jQuery);
 

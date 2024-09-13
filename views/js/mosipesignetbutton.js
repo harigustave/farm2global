@@ -27,6 +27,8 @@ const oidcConfig = {
   claims: JSON.parse(decodeURI(clientDetails.userProfileClaims)),
 };
 
+console.log("Button is working")
+
 window.SignInWithEsignetButton?.init({
   oidcConfig: oidcConfig,
   buttonConfig: {

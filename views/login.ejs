@@ -64,25 +64,23 @@
         <div class="container-fluid py-5">
             <div class="container">
                 <div class="row g-5">
-                    <div class="col-lg-4 col-md-6 py-5 px-5">
-                        <img src="img/register.svg" width="180px" height="auto" class="mt-2"/>
+                    <div class="col-lg-4 col-md-6 py-0 px-5">
+                        <img src="img/register.svg" width="180px" height="auto" class="mt-0"/>
                         <p class="mt-5" style="font-size: 14px;">
                             <a class="text-decoration-underline text-white" href="/signup">Register</a>
                                 <span style="color: orange;font-weight: bold;">OR</span>
                             <a class="text-decoration-underline text-white" href="/resetpass"> Reset Password</a> 
                         </p>
-                        <div class="col-lg-4 col-md-6 text-white" id="sign-in-with-esignet">
+                        <div class="col-lg-4 col-md-6 text-white mt-2" id="sign-in-with-esignet" style="width: 200px;">
                             <!-- SignIn With Esignet Button -->
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 mt-5">
-                        <div class="h-100 px-5 pt-3 pb-3 mb-4" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
+                    <div class="col-lg-4 col-md-6 mt-5 mb-3">
+                        <div class="h-100 px-5 pt-3 pb-2 mb-4" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
                             <form action="/login" method="post">
                                 <div class="row g-3">
                                     <div class="col-12 text-center mb-3 pt-3">
-                                        <!-- <h5 class="display-7 text-dark"> -->
-                                            <u class="text-dark" style="font-size: 18px;font-weight: bold;color: rgb(0, 0, 0)">ACCOUNT LOGIN</u>
-                                        <!-- </h5> -->
+                                        <u class="text-dark" style="font-size: 18px;font-weight: bold;color: rgb(0, 0, 0)">ACCOUNT LOGIN</u>
                                     </div>
                                     <div class="col-12">
                                         <input type="text" class="form-control bg-light border-1 px-4" placeholder="Phone number" name="phonenumber" style="height: 55px;" required>
@@ -95,9 +93,6 @@
                                                 Sign In
                                         </button>
                                     </div>
-                                    <!-- <div class="col-lg-12 col-md-6 text-center alert alert-danger "> -->
-                                        <!-- <strong style="font-size: 10px;">Phone Number Not Found</strong> -->
-                                    <!-- </div> -->
                                 </div>
                             </form>
                         </div>
@@ -125,9 +120,9 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
     <script src="lib/esignetlogin.js"></script>
-    <script src="js/mosipesignetbutton.js"></script>
+    <script src="js/main.js"></script>
+    <!-- <script src="js/mosipesignetbutton.js"></script> -->
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Edit Profile</title>
+    <title>Farmer Profile</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -38,8 +38,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="/farmerdashboard" class="nav-item nav-link">MY PROFILE</a>
-                <a href="/editprofile" class="nav-item nav-link active">EDIT PROFILE</a>
+                <a href="/farmerdashboard" class="nav-item nav-link active">MY PROFILE</a>
+                <a href="/editprofile" class="nav-item nav-link">EDIT PROFILE</a>
                 <a href="/viewcrops" class="nav-item nav-link">VIEW CROPS</a>
                 <a href="/addcrop" class="nav-item nav-link">ADD CROP</a>
 		        <a href="/deletecrop" class="nav-item nav-link">DELETE CROP</a> 
@@ -61,40 +61,46 @@
     </nav>
     <!-- Navbar End -->
 
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-4 mt-2">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-4 col-md-6">
-                    <img src="img/editprofile.svg" width="110px" height="auto" class="mt-5"/>
+                <div class="col-lg-4 col-md-6 py-5">
+                    <img src="img/viewprofile.svg" width="180px" height="auto" class="py-5"/>
+                </div> 
+                <div class="col-lg-5 col-md-6 py-3 border-primary" style="border-style: dashed;border-radius: 10px;">
+                    <p class="text-center">
+                        <span class="text-dark" style="font-size: 20px;color: rgb(0, 0, 0);font-weight: bold;">Farmer Information</span>
+                    </p>
+                    <hr style="height: 3px; background-color: white;"/>
+                    <p style="font-size: 14px;" class="pt-3">
+                        <b class="text-dark">First name:</b> <span class="text-white"><%= user.firstname %></span>
+                    </p>
+                    <p style="font-size: 14px;">
+                        <b class="text-dark">Last name:</b> <span class="text-white"><%= user.lastname %></span>
+                    </p>
+                    <p style="font-size: 14px;">
+                        <b class="text-dark">Country:</b> <span class="text-white"><%= user.country %></span>
+                    </p>
+                    <p style="font-size: 14px;">
+                        <b class="text-dark">Phone number:</b> <span class="text-white"><%= user.phone %></span>
+                    </p>
+                    <p style="font-size: 14px;">
+                        <b class="text-dark">National ID:</b> <span class="text-white"><%= user.nationalid %></span>
+                    </p>
+                    <p style="font-size: 14px;">
+                        <b class="text-dark">MOSIP Unique ID:</b> <span class="text-white"><%= user.digitalid %></span>
+                    </p>
+                    <hr />
+                    <p class="text-danger text-center"> 
+                        <i class="fa fa-check-circle fs-6" style="color: lawngreen;"></i> 
+                        <span style="color: lawngreen;">
+                            Verified
+                        </span>
+                    </p>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="p-5" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
-                        <form action="/editprofile" method="post">
-                            <div class="row g-3">
-                                <div class="col-12 text-center mb-1">
-                                    <!-- <h5 class="display-7 text-dark"> -->
-                                        <u class="text-dark" style="font-size: 18px;color: rgb(0, 0, 0);font-weight: bold;">EDIT PROFILE</u>
-                                    <!-- </h5> -->
-                                </div>
-                                <div class="col-12">
-                                    <label for="country" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">Phone Number:</label>
-                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="phonenumber">
-                                </div>
-                                <div class="col-12">
-                                    <label for="nid" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">National ID:</label>
-                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="nid">
-                                </div>
-                                <div class="col-12 mt-3">
-                                    <button class="btn btn-secondary w-100 py-3 text-white" type="submit" style="border-radius: 10px;">
-                                            Submit
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
 
+                </div>      
                 </div>
             </div>
         </div>

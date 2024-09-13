@@ -42,7 +42,7 @@ app.post('/signup', async (req, res) => {
     phonenumber = req.body.phonenumber
     country = req.body.country.toUpperCase()
     nid = req.body.nid
-
+    MOSIPUIN='4259643861'
     const query =
       'INSERT INTO farmers(firstname, lastname, phone, passwd, country, nationalid, digitalid) VALUES ($1, $2, $3, $4, $5, $6, $7)'
     const values = [
@@ -52,7 +52,7 @@ app.post('/signup', async (req, res) => {
       hashedpassword,
       country,
       nid,
-      ''
+      MOSIPUIN
     ]
     client.query(query, values, (err, res) => {
       if (err) {
@@ -68,7 +68,7 @@ app.post('/signup', async (req, res) => {
   }
 })
 
-// Login endpoint
+// Local Login endpoint
 app.post('/login', async (req, rest) => {
   try {
     phonenumber = req.body.phonenumber
@@ -87,7 +87,7 @@ app.post('/login', async (req, rest) => {
             } else if (result > 0) {
               console.log('Passwords match! User authenticated.')
               req.session.loggedInUser = res.rows[0]
-              rest.redirect('/farmerdashboard')
+              rest.redirect('/localfarmerdashboard')
             } else {
               console.log('Invalid Password')
               rest.redirect('/login')
@@ -98,6 +98,31 @@ app.post('/login', async (req, rest) => {
           req.session.message = 'Invalid Phone Number'
           console.log('Invalid Phone Number')
           rest.redirect('/login')
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/login')
+  }
+})
+
+// Mosip Login endpoint
+app.post('/mosiplogin', async (req, rest) => {
+  try {
+    phonenumber = req.body.phonenumber
+    // password = req.body.password
+    const query = 'SELECT * FROM farmers WHERE phone = $1'
+    client.query(query, [phonenumber], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          req.session.loggedInUser = res.rows[0]
+          rest.redirect('/localfarmerdashboard')
+            } else {
+              rest.redirect('/login')
+              // Deny access
         }
       }
     })
@@ -373,18 +398,23 @@ app.get('/login', (req, res) => {
   res.render('login.ejs')
 })
 
+// Login get endpoint
+app.get('/farmerdashboard', (req, res) => {
+  res.render('farmerdashboard.ejs')
+})
+
 // Reset Password get endpoint
 app.get('/resetpass', (req, res) => {
   res.render('resetpass.ejs')
 })
 
 // Farmer Dashboard get endpoint
-app.get('/farmerdashboard', (req, res) => {
+app.get('/localfarmerdashboard', (req, res) => {
   if (req.session.loggedInUser) {
   } else {
     console.log('No user logged in.')
   }
-  res.render('farmerdashboard.ejs', { user: req.session.loggedInUser })
+  res.render('localfarmerdashboard.ejs', { user: req.session.loggedInUser })
 })
 
 // Edit Profile get endpoint
