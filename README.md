@@ -2,40 +2,40 @@
 
 **DB Specifications:** (Change below values in **server.js** Line 5~9 accordingly)
 
-**DBMS To Install:** PostgreSQL
-**DB Name:** farm2global
-**DB User:** <YOUR_DB_USER>
-**DB Password:** <YOUR_DB_PASSWORD>
-**Host:** 'localhost'
-**Port:** <YOUR_DB_PORT>
+1. **DBMS To Install:** PostgreSQL
+2. **DB Name:** farm2global
+3. **DB User:** <YOUR_DB_USER> 
+4. **DB Password:** <YOUR_DB_PASSWORD>
+5. **Host:** 'localhost'
+6. **Port:** <YOUR_DB_PORT>
 
 **Tables:**
 1. **farmers:**  
    
 **Table Fields:**
 
-firstname **VARCHAR(255)**
-lastname **VARCHAR(255)**
-phone **VARCHAR(20)**
-passwd **VARCHAR(255)**
-country **VARCHAR(30)**
-nationalid **VARCHAR(30)**
-digitalid **VARCHAR(255)**
-image_data **BYTEA**
-mime_type **TEXT**
+1. firstname **VARCHAR(255)**
+2. lastname **VARCHAR(255)**
+3. phone **VARCHAR(20)**
+4. passwd **VARCHAR(255)**
+5. country **VARCHAR(30)**
+6. nationalid **VARCHAR(30)**
+7. digitalid **VARCHAR(255)**
+8. image_data **BYTEA**
+9. mime_type **TEXT**
 
 2. **crops**
    
 **Table Fields:**
 
-ownercontact **VARCHAR(30)**
-ownername **VARCHAR(50)**
-country **VARCHAR(30)**
-cropname **VARCHAR(80)**
-harvestseasons **VARCHAR(50)**
-qtyperseason **DOUBLE**
-image_data **BYTEA**
-mime_type **TEXT**
+1. ownercontact **VARCHAR(30)**
+2. ownername **VARCHAR(50)**
+3. country **VARCHAR(30)**
+4. cropname **VARCHAR(80)**
+5. harvestseasons **VARCHAR(50)**
+6. qtyperseason **DOUBLE**
+7. image_data **BYTEA**
+8. mime_type **TEXT**
 
 # How to run the application
 1. Install and install NodeJS (https://nodejs.org/en/download/package-manager)
