@@ -1,13 +1,14 @@
 # Initial Setup:
 
+0. **DBMS To Install:** PostgreSQL\
+
 **DB Specifications:** (Change below values in **server.js** Line 5~9 accordingly)
 
-1. **DBMS To Install:** PostgreSQL
-2. **DB Name:** farm2global
-3. **DB User:** <YOUR_DB_USER> 
-4. **DB Password:** <YOUR_DB_PASSWORD>
-5. **Host:** 'localhost'
-6. **Port:** <YOUR_DB_PORT>
+1. **DB Name:** farm2global
+2. **DB User:** <YOUR_DB_USER> 
+3. **DB Password:** <YOUR_DB_PASSWORD>
+4. **Host:** 'localhost'
+5. **Port:** <YOUR_DB_PORT>
 
 **Tables:**
 1. **farmers:**  
