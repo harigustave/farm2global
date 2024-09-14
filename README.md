@@ -1,6 +1,6 @@
 # Initial Setup:
 
-0. **DBMS To Install:** PostgreSQL\
+0. **DBMS To Install:** PostgreSQL
 
 **DB Specifications:** (Change below values in **server.js** Line 5~9 accordingly)
 
