@@ -12,7 +12,7 @@
 
 **Tables:**
 
-**farmers:**  
+**Table name:** farmers
    
 **Table Fields:**
 
@@ -26,7 +26,7 @@
 8. image_data **BYTEA**
 9. mime_type **TEXT**
 
-**crops**
+**Table name:** crops
    
 **Table Fields:**
 
