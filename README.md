@@ -40,7 +40,7 @@
 8. mime_type **TEXT**
 
 # How to run the application
-1. Install and install NodeJS (https://nodejs.org/en/download/package-manager)
+1. Download and install NodeJS (https://nodejs.org/en/download/package-manager)
 2. Fork the repo
 3. Download and install Git (https://git-scm.com/)
 4. Clone the repo (Command: git clone https://github.com/harigustave/farm2global.git)
