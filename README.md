@@ -11,7 +11,8 @@
 5. **Port:** <YOUR_DB_PORT>
 
 **Tables:**
-1. **farmers:**  
+
+**farmers:**  
    
 **Table Fields:**
 
@@ -25,7 +26,7 @@
 8. image_data **BYTEA**
 9. mime_type **TEXT**
 
-2. **crops**
+**crops**
    
 **Table Fields:**
 
@@ -58,6 +59,15 @@
 15. To add one, from the menu Click **Add Crop** and for testing purpose put "coffee" as crop name and fill other remaining fields. Currently we have coffee as functional crop name, pages for others crops are still being developed. The reason why we request you to use coffee only for testing purpose.
 16. After submiting the new crop, Open another new tab in the same browser and enter **localhost:2000/** and hit enter, and on the slideshow of **coffee crop** click on **Explore** button, you can see the crops that you have registered appearing. Thus your global visibility.
 17. If you are no longer producing such crop, go to that page **(Step 13)** and **View Crops** and Click **Delete**. After, if you repeat **(Step 16)**, you will see that you are no longer appearing on the page.
+
+# Step (11) To login using MOSIP eSignet:
+
+1. Click "**Sign in using eSignet**"
+2. Choose Login with **OTP**
+3. Enter Test UNI  **4259643861** and click **Get OTP**
+4. Enter **111111** six ones as test OTP and click **Verify**
+5. To validate the farmer's Phone number, Enter the phone number that you have registered on **STEP 10** and click **Continue**
+6. Proceed with normal activities from **STEP 12**
 
 
 **THANK YOU**
