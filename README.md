@@ -1,4 +1,43 @@
-# How to run the app
+# Initial Setup:
+
+**DB Specifications:** (Change below values in **server.js** Line 5~9 accordingly)
+
+**DBMS To Install:** PostgreSQL
+**DB Name:** farm2global
+**DB User:** <YOUR_DB_USER>
+**DB Password:** <YOUR_DB_PASSWORD>
+**Host:** 'localhost'
+**Port:** <YOUR_DB_PORT>
+
+**Tables:**
+1. **farmers:**  
+   
+**Table Fields:**
+
+firstname **VARCHAR(255)**
+lastname **VARCHAR(255)**
+phone **VARCHAR(20)**
+passwd **VARCHAR(255)**
+country **VARCHAR(30)**
+nationalid **VARCHAR(30)**
+digitalid **VARCHAR(255)**
+image_data **BYTEA**
+mime_type **TEXT**
+
+2. **crops**
+   
+**Table Fields:**
+
+ownercontact **VARCHAR(30)**
+ownername **VARCHAR(50)**
+country **VARCHAR(30)**
+cropname **VARCHAR(80)**
+harvestseasons **VARCHAR(50)**
+qtyperseason **DOUBLE**
+image_data **BYTEA**
+mime_type **TEXT**
+
+# How to run the application
 1. Install and install NodeJS (https://nodejs.org/en/download/package-manager)
 2. Fork the repo
 3. Download and install Git (https://git-scm.com/)
