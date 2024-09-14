@@ -39,10 +39,9 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
                 <a href="/localfarmerdashboard" class="nav-item nav-link">MY PROFILE</a>
-                <a href="/editprofile" class="nav-item nav-link">EDIT PROFILE</a>
+                <a href="/editprofile" class="nav-item nav-link">UPDATE PROFILE</a>
                 <a href="/viewcrops" class="nav-item nav-link">VIEW CROPS</a>
                 <a href="/addcrop" class="nav-item nav-link active">ADD CROP</a>
-		        <a href="/deletecrop" class="nav-item nav-link">DELETE CROP</a>
             </div>
         </div>
         <div class="nav-item dropdown" style="float: right;">
@@ -64,36 +63,33 @@
     <div class="container-fluid py-4">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-4 col-md-6 py-5">
-                    <img src="img/addcrop.svg" width="200px" height="auto" class="mt-5"/>
+                <div class="col-lg-4 col-md-6 py-5 text-center">
+                    <img src="img/addcrop.svg" width="180px" height="auto" class="mt-5"/>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <div class="px-5 py-4 mb-3" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
+                    <div class="px-5 py-3 mb-2" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
                         <form action="/addcrop" method="post">
                             <div class="row g-3">
-                                <div class="col-12 text-center mb-1">
-                                    <!-- <h5 class="display-7 text-dark"> -->
-                                        <u class="text-dark" style="font-size: 18px;color: rgb(0, 0, 0);font-weight: bold;">ADD NEW CROP</u>
-                                    <!-- </h5> -->
+                                <div class="col-12 text-center mb-0">
+                                        <span class="text-dark" style="font-size: 18px;color: rgb(0, 0, 0);font-weight: bold;">Add New Crop</span>
+                                    <hr style="height: 2px;background-color: white;"/>
                                 </div>
 
                                 <div class="col-12">
                                     <label style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">
-                                        <u>
                                             Harvest Season:
-                                        </u>
                                     </label>
                                 </div>
                                 <div class="col-4">
-                                    <input type="checkbox" value="Fall" id="fall" name="fall">
+                                    <input type="radio" value="Fall" id="fall" name="season">
                                     <label for="fall" style="font-weight: bold;font-size: 12px;color: white">Fall</label>
                                 </div>
                                 <div class="col-4">
-                                    <input type="checkbox" value="Spring" id="spring" name="spring">
+                                    <input type="radio" value="Spring" id="spring" name="season">
                                     <label for="spring" style="font-weight: bold;font-size: 12px;color: white">Spring</label>
                                 </div>
                                 <div class="col-4">
-                                    <input type="checkbox" value="Summer" id="summer" name="summer">
+                                    <input type="radio" value="Summer" id="summer" name="season">
                                     <label for="summer" style="font-weight: bold;font-size: 12px;color: white">Summer</label>
                                 </div>
 
@@ -102,7 +98,7 @@
                                     <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="cpname" required>
                                 </div>
                                 <div class="col-12">
-                                    <label for="qty" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">Quantity/Season:</label>
+                                    <label for="qty" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">Quantity/Season(Kg):</label>
                                     <input type="number" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="qty" required>
                                 </div>
                                 <div class="col-3">

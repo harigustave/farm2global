@@ -42,12 +42,12 @@
             <a href="/about" class="nav-item nav-link">About</a>
             <a href="/service" class="nav-item nav-link">Services</a>
             <a href="/feature" class="nav-item nav-link">Features</a>
-    <a href="/testimonial" class="nav-item nav-link">Testimonial</a>
-    <a href="/contact" class="nav-item nav-link">Contact Us</a>
+            <a href="/testimonial" class="nav-item nav-link">Testimonial</a>
+            <a href="/contact" class="nav-item nav-link">Contact Us</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-        <i class="fa fa-user display-10 text-secondary" style="padding-right: 5px;"></i> My Account
-        </a>
+                    <i class="fa fa-user display-10 text-secondary" style="padding-right: 5px;"></i> My Account
+                </a>
                 <div class="dropdown-menu m-0">
                     <a href="/signup" class="dropdown-item">Account Register</a>
                     <a href="/login" class="dropdown-item">Account Login</a>
@@ -58,16 +58,16 @@
 </nav>
 <!-- Navbar End -->
 
-
-    <!-- Team Start -->
     <div class="container-fluid py-2">
         <div class="container">
 	    <!-- Search Form Start -->
             <div class="mb-5">
+                <form action="/coffee" method="post">
                 <div class="input-group" style="width: 300px;float:right"></br>
-                    <input type="text" class="form-control p-2" placeholder="Search By Country">
-                       <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    <input type="text" class="form-control p-2" placeholder="Search By Country" name="search_country">
+                    <button class="btn btn-primary px-4" type="submit"><i class="bi bi-search"></i></button>  
                 </div>
+            </form>
             </div>
             <!-- Search Form End -->
 
@@ -82,8 +82,12 @@
                     <div class="row g-0">
                         <div class="col-12">
                             <div class="position-relative">
+                            <% if (!crops[i].image_data) { %>
                                 <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
-                                <div class="position-absolute start-0 bottom-0 w-100 py-3 px-4" style="background: rgba(88, 90, 88, 0.9);">
+                            <% } else { %>
+                                <img class="img-fluid w-100" src="data:<%= crops[i].mime_type %>;base64,<%= crops[i].image_data %>" alt="">
+                            <% } %>
+                                <div class="position-absolute start-0 bottom-0 w-100 py-1 px-4" style="background: rgba(88, 90, 88, 0.9);">
                                     <span class="text-white" style="font-size: 14px;"><b style="color:orange">Farmer Name:</b>
                                         <%= crops[i].ownername %> 
                                     </span></br>

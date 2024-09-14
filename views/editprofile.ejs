@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Edit Profile</title>
+    <title>Update Profile</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -39,10 +39,9 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
                 <a href="/localfarmerdashboard" class="nav-item nav-link">MY PROFILE</a>
-                <a href="/editprofile" class="nav-item nav-link active">EDIT PROFILE</a>
+                <a href="/editprofile" class="nav-item nav-link active">UPDATE PROFILE</a>
                 <a href="/viewcrops" class="nav-item nav-link">VIEW CROPS</a>
                 <a href="/addcrop" class="nav-item nav-link">ADD CROP</a>
-		        <a href="/deletecrop" class="nav-item nav-link">DELETE CROP</a> 
             </div>
         </div>
         <div class="nav-item dropdown" style="float: right;">
@@ -61,31 +60,38 @@
     </nav>
     <!-- Navbar End -->
 
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-4">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 py-5 text-center">
                     <img src="img/editprofile.svg" width="110px" height="auto" class="mt-5"/>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="p-5" style="border-radius: 10px; border: 2px solid rgb(64, 157, 64); border-style: dashed;">
-                        <form action="/editprofile" method="post">
+                        <form action="/editprofile" method="post" enctype="multipart/form-data">
                             <div class="row g-3">
                                 <div class="col-12 text-center mb-1">
-                                    <!-- <h5 class="display-7 text-dark"> -->
-                                        <u class="text-dark" style="font-size: 18px;color: rgb(0, 0, 0);font-weight: bold;">EDIT PROFILE</u>
-                                    <!-- </h5> -->
+                                        <span class="text-dark" style="font-size: 18px;color: rgb(0, 0, 0);font-weight: bold;">Update Farmer Profile</span>
+                                    <hr style="height: 2px;background-color: white;"/>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
+                                    <label for="country" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">Country:</label>
+                                    <input type="text" class="form-control bg-silver border-1 px-4" placeholder="" style="height: 40px;font-size: 15px;" name="phonenumber" disabled value="<%= user.country %>">
+                                </div>
+                                <div class="col-6">
+                                    <label for="country" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">National ID:</label>
+                                    <input type="text" class="form-control bg-silver border-1 px-4" placeholder="" style="height: 40px;font-size: 15px;" name="phonenumber" disabled value="<%= user.nationalid %>">
+                                </div>
+                                <div class="col-6">
                                     <label for="country" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">Phone Number:</label>
-                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="phonenumber">
+                                    <input type="text" class="form-control bg-silver border-1 px-4" placeholder="" style="height: 40px;font-size: 15px;" name="phonenumber" disabled value="<%= user.phone %>">
                                 </div>
-                                <div class="col-12">
-                                    <label for="nid" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">National ID:</label>
-                                    <input type="text" class="form-control bg-light border-1 px-4" placeholder="" style="height: 40px;" name="nid">
+                                <div class="col-6">
+                                    <label for="nid" style="font-weight: bold;font-size: 14px;color: rgb(71, 71, 70)">Farmer Picture:</label>
+                                    <input type="file" class="mt-2" name="image" accept="image/*" class="text-white" placeholder="" style="height: 40px;font-size: 15px;color: white;">
                                 </div>
-                                <div class="col-12 mt-3">
-                                    <button class="btn btn-secondary w-100 py-3 text-white" type="submit" style="border-radius: 10px;">
+                                <div class="col-12 mt-4 text-center">
+                                    <button class="btn btn-secondary w-90 py-3 text-white" type="submit" style="border-radius: 10px;width: 160px;">
                                             Submit
                                     </button>
                                 </div>
@@ -93,7 +99,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-2 col-md-6">
 
                 </div>
             </div>

@@ -15,6 +15,9 @@ const express = require('express')
 const session = require('express-session')
 const app = express()
 const bcrypt = require('bcrypt')
+const multer = require('multer');
+const fs = require('fs');
+const { Console } = require('console')
 
 // Set up session middleware
 app.use(
@@ -32,6 +35,9 @@ app.use(express.static('views'))
 app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false }))
+
+// Use memory storage for storing the image in memory
+const upload = multer({ storage: multer.memoryStorage() }); 
 
 // Signup endpoint
 app.post('/signup', async (req, res) => {
@@ -68,7 +74,7 @@ app.post('/signup', async (req, res) => {
   }
 })
 
-// Local Login endpoint
+// Local User Login endpoint
 app.post('/login', async (req, rest) => {
   try {
     phonenumber = req.body.phonenumber
@@ -111,7 +117,6 @@ app.post('/login', async (req, rest) => {
 app.post('/mosiplogin', async (req, rest) => {
   try {
     phonenumber = req.body.phonenumber
-    // password = req.body.password
     const query = 'SELECT * FROM farmers WHERE phone = $1'
     client.query(query, [phonenumber], (err, res) => {
       if (err) {
@@ -133,72 +138,27 @@ app.post('/mosiplogin', async (req, rest) => {
 })
 
 //Edit Profile endpoint
-app.post('/editprofile', (req, res) => {
-  try {
-    phonenumber = req.body.phonenumber
-    nationalid = req.body.nid
-
-    if (phonenumber == '' && nationalid == '') {
-      console.log('Profile Not Updated. User Provided empty entries')
-    } else if (phonenumber != '' && nationalid == '') {
-      try {
-        nationalid = req.session.loggedInUser.nationalid
-        console.log('National ID: ', nationalid)
-        const query =
-          'UPDATE farmers SET phone = $1 WHERE nationalid = $2 RETURNING *'
-        const values = [phonenumber, nationalid]
-        client.query(query, values, (err, res) => {
-          if (err) {
-            console.error(err.detail)
-            return
-          }
-          console.log('Phone number updated successfully')
-        })
-        res.redirect('/editprofile')
-      } catch (e) {
-        console.log(e)
-        res.redirect('/editprofile')
-      }
-    } else if (phonenumber == '' && nationalid != '') {
-      try {
-        phonenumber = req.session.loggedInUser.phone
-        const query =
-          'UPDATE farmers SET nationalid = $1 WHERE phone = $2 RETURNING *'
-        const values = [nationalid, phonenumber]
-        client.query(query, values, (err, res) => {
-          if (err) {
-            console.error(err.detail)
-            return
-          }
-          console.log('National ID updated successfully!!!')
-        })
-        res.redirect('/editprofile')
-      } catch (e) {
-        console.log(e)
-        res.redirect('/editprofile')
-      }
-    } else {
-      try {
-        phonenum = req.session.loggedInUser.phone
-        const query =
-          'UPDATE farmers SET nationalid = $1,phone = $2 WHERE phone = $3 RETURNING *'
-        const values = [nationalid, phonenumber, phonenum]
-        client.query(query, values, (err, res) => {
-          if (err) {
-            console.error(err.detail)
-            return
-          }
-          console.log('All entries are updates successfully!!!')
-        })
-        res.redirect('/editprofile')
-      } catch (e) {
-        console.log(e)
-        res.redirect('/editprofile')
-      }
-    }
-  } catch (e) {
-    console.log(e)
+app.post('/editprofile', upload.single('image'), async(req, res) => {
+  if (!req.file) {
+    console.log('No file uploaded.');
     res.redirect('/editprofile')
+  }else{
+      const image = req.file.buffer; // Get the image buffer
+      const mimeType = req.file.mimetype; //Get MIME TYPE of the image
+      phonenumber = req.session.loggedInUser.phone
+      
+      const values = [image,mimeType,phonenumber]
+      
+      //Update Farmers table
+      const query='UPDATE farmers SET image_data = $1, mime_type = $2 WHERE phone = $3 RETURNING *'
+      const result=client.query(query, values, (err, rest) => {
+        if (err) {
+          console.error(err.detail)
+          return
+        }
+        console.log('>>>> Farmers Table: Farmer Picture updated successfully!!!')
+      })
+      res.redirect('/editprofile')
   }
 })
 
@@ -206,44 +166,49 @@ app.post('/editprofile', (req, res) => {
 app.post('/addcrop', (req, res) => {
   try {
     contact = req.session.loggedInUser.phone
-
     firstname = req.session.loggedInUser.firstname
     lastname = req.session.loggedInUser.lastname
     fullname = firstname + ' ' + lastname
 
     country = req.session.loggedInUser.country
-
-    fall = req.body.fall
-    summer = req.body.summer
-    spring = req.body.spring
-    if (fall == undefined) {
-      fall = ''
-    }
-    if (summer == undefined) {
-      summer = ''
-    }
-    if (spring == undefined) {
-      spring = ''
-    }
-    seasons = fall + ' ' + summer + ' ' + spring
-    seasons = seasons.trim()
-
+    seasons = req.body.season
     croname = req.body.cpname.toUpperCase()
-
     seasonqty = req.body.qty
 
-    const query =
-      'INSERT INTO crops(ownercontact, ownername, country, cropname, harvestseasons, qtyperseason) VALUES ($1, $2, $3, $4, $5, $6)'
-    const values = [contact, fullname, country, croname, seasons, seasonqty]
-
-    client.query(query, values, (err, res) => {
+    const query2 = 'SELECT * FROM crops WHERE cropname = $1 AND ownercontact = $2'
+    client.query(query2, [croname,contact], (err, rest) => {
       if (err) {
-        console.error(err.detail)
-        return
+        console.error('Error executing query', err.stack)
+      } else {
+        if (rest.rowCount > 0) {
+          console.log("Crop already exists")
+          res.redirect('/addcrop')
+        }else{
+          const query3 ='SELECT image_data,mime_type FROM farmers WHERE phone = $1' 
+          client.query(query3, [contact], (err, reslt) => {
+            if (err) {
+              console.error(err.detail)
+              return
+            }
+            image=reslt.rows[0].image_data
+            mimetype=reslt.rows[0].mime_type
+
+            const query = 'INSERT INTO crops(ownercontact, ownername, country, cropname, harvestseasons, qtyperseason, image_data, mime_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)'
+            const values = [contact, fullname, country, croname, seasons, seasonqty, image, mimetype]
+  
+            client.query(query, values, (err, res) => {
+              if (err) {
+                console.error(err.detail)
+                return
+              }
+              console.log('Crop data insert successful!!!')
+            })
+            res.redirect('/addcrop')
+          })
+        }  
       }
-      console.log('Crop data insert successful!!!')
     })
-    res.redirect('/addcrop')
+
   } catch (e) {
     console.log(e)
     res.redirect('/addcrop')
@@ -251,12 +216,11 @@ app.post('/addcrop', (req, res) => {
 })
 
 //Delete Crop endpoint
-app.post('/deletecrop', (req, res) => {
+app.post('/deletecrop/:cropname', (req, res) => {
   try {
     contact = req.session.loggedInUser.phone
-
-    croname = req.body.cpname
-    croname = croname.toUpperCase()
+    const { cropname } = req.params
+    croname = cropname.toUpperCase()
 
     query = 'SELECT * FROM crops WHERE ownercontact = $1 AND cropname = $2'
     client.query(query, [contact, croname], (err, res) => {
@@ -272,24 +236,23 @@ app.post('/deletecrop', (req, res) => {
                 console.error(err.detail)
                 return
               }
-
               if (rest.rowCount > 0) {
                 console.log('Crop data deleted successful!!!')
               }
             })
           } catch (e) {
             console.log(e)
-            res.redirect('/deletecrop')
+            res.redirect('/viewcrops')
           }
         } else {
           console.log(`You do not have ${croname} in our Database`)
         }
       }
     })
-    res.redirect('/deletecrop')
+    res.redirect('/viewcrops')
   } catch (e) {
     console.log(e)
-    res.redirect('/deletecrop')
+    res.redirect('/viewcrops')
   }
 })
 
@@ -323,27 +286,29 @@ app.get('/feature', (req, res) => {
   res.render('feature.ejs')
 })
 
-// Cotton Crops endpoint
-app.get('/cotton', (req, rest) => {
+// Display all Coffee Farmers endpoint
+app.get('/coffee', (req, rest) => {
   crops = undefined
   try {
-    cropname = 'COTTON'
-
+    cropname = 'COFFEE'
     query = 'SELECT * FROM crops WHERE cropname = $1'
     client.query(query, [cropname], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
         if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('cotton.ejs', { crops })
+          rest.render('coffee.ejs', { crops })
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
           console.log('You do not have crops in our Database')
-          rest.render('cotton.ejs', { crops })
+          rest.render('coffee.ejs', { crops })
         }
       }
     })
@@ -353,18 +318,22 @@ app.get('/cotton', (req, rest) => {
   }
 })
 
-// Coffee Crops endpoint
-app.get('/coffee', (req, rest) => {
+// Search Coffee Farmers endpoint
+app.post('/coffee', (req, rest) => {
   crops = undefined
   try {
-    cropname = 'COFFEE'
-
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    cropname="COFFEE"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
         if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
           req.session.crops = res.rows
           crops = req.session.crops
           rest.render('coffee.ejs', { crops })
@@ -372,8 +341,40 @@ app.get('/coffee', (req, rest) => {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
-          console.log('You do not have crops in our Database')
+          console.log('We do not have ',cropname,' farmers in ',country)
           rest.render('coffee.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Cotton Farmers endpoint
+app.get('/cotton', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'COTTON'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('cotton.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('cotton.ejs', { crops })
         }
       }
     })

@@ -39,10 +39,9 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
                 <a href="/localfarmerdashboard" class="nav-item nav-link">MY PROFILE</a>
-                <a href="/editprofile" class="nav-item nav-link">EDIT PROFILE</a>
+                <a href="/editprofile" class="nav-item nav-link">UPDATE PROFILE</a>
                 <a href="/viewcrops" class="nav-item nav-link active">VIEW CROPS</a>
                 <a href="/addcrop" class="nav-item nav-link">ADD CROP</a>
-		        <a href="/deletecrop" class="nav-item nav-link">DELETE CROP</a> 
             </div>
         </div>
         <div class="nav-item dropdown" style="float: right;">
@@ -64,38 +63,48 @@
     <div class="container-fluid py-5">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-3 col-md-6 py-5">
-                   <img src="img/viewcrops2.svg" width="200px" height="auto" class="py-5 my-5 mx-3"/>
+                <div class="col-lg-2 col-md-6 py-5">
+                   
                 </div>
-                <div class="col-lg-6 col-md-6 border-primary py-4" style="border-style: dashed;border-radius: 10px;">
+                <div class="col-lg-8 col-md-6 border-primary py-5" style="border-style: dashed;border-radius: 10px;">
                     <p class="text-center">
                         <span class="text-dark" style="font-size: 20px;color: rgb(0, 0, 0);font-weight: bold;">Available Crops Information</span>
                     </p>
-                    <hr style="height: 3px;background-color: white;" class="mb-4"/>
+                    <hr style="height: 2px;background-color: white;" class="mb-4"/>
                     <div class="container-fluid">
                         <div class="container">
                             <div class="row g-5">
                                     <% if (crops.length>0) { %>
                                         <% for (let i=0; i<crops.length;i++) { %>
-                                        <div class="col-lg-6 col-md-6 py-2" style="background-color: rgb(236, 233, 233);">
-                                                <p class="text-primary" style="font-size: 18px;font-weight: bold;">
+                                        <div class="col-lg-4 col-md-6 py-3" style="background-color: rgb(236, 233, 233);">
+                                                <p class="text-primary text-center" style="font-size: 18px;font-weight:normal;">
                                                     <%= crops[i].cropname %> 
                                                 </p>
                                             <hr/>
-                                            <p style="font-size: 13px">
-                                                <b style="color: black;">Harvest Season(s):</b> <span>
+                                            <p style="font-size: 13px;padding-left: 30px;">
+                                                <b style="color: black;">Season(s):</b><span>
                                                     <%= crops[i].harvestseasons %>
-                                                </span><br />
-                                                <b style="color: black;">Quantity/Season:</b> <span>
+                                                </span><br /><br/>
+                                                <b style="color: black;">Quantity:</b><span>
                                                     <%= crops[i].qtyperseason %>Kg
                                                 </span>
                                             </p>
+                                            <hr/>
+                                            <div class="col-lg-12 col-md-6 text-center">
+                                                <form action="/deletecrop/<%= crops[i].cropname %>" method="post">
+                                                    <button class="btn btn-danger w-90 py-1 text-white" type="submit" style="border-radius: 10px;width: 100px;font-size: 10px;">
+                                                        Delete
+                                                    </button> 
+                                                </form>
+                                            </div>
                                     </div>
                                 <% } %>
                                 <% } else { %>
-                                <div class="col-lg-12 col-md-6 text-center py-3 my-5" style="background-color: rgb(236, 233, 233);">
-                                    <p class="py-5">You do not have crops in our database.<br/>
-                                        To add one, click on "ADD CROP" on the menu.
+                                <div class="col-lg-12 col-md-6 text-center py-5" style="background-color: rgb(236, 233, 233);border-radius: 10px;">
+                                    <p class="py-5 px-3">
+                                        <i class="fa fa-exclamation-triangle fs-4 text-warning mx-2"></i>
+                                        You do not have crops in our database.
+                                        To add one, click on <span class="text-warning" style="font-weight: bold;">ADD CROP</span> from the menu.
                                     </p>
                                 </div>
                                 </div>
@@ -104,13 +113,13 @@
                         </div>
                     </div>        
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-6">
                    
                 </div>
             </div>
         </div>
     </div>
-<!-- </div>  -->
+
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-3 mt-3">
         <div class="container text-center">
