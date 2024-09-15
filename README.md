@@ -53,7 +53,7 @@
   **N.B:** In addition, note down the phone number and password used while registering because they will be used to login
 11. To login as a farmer, Click on **Account Login** and enter the correct **Phone number** and **Password**
 12. Once on farmers dashboard, we recommend to update your profile picture first via **UPDATE PROFILE** tab, as it will be used while showing your farming information globally. 
-   **N.B:** We recomend using jpg picture of size 360x450. If you dont have the picture(s) with mentioned specifications, use the picture in this directory **farm2global/img/farmers images**. We have prepared pictures with required specifications for you to test.
+   **N.B:** We recomend using jpg picture of size 360x450. If you dont have the picture(s) with mentioned specifications, use the picture in this directory **views/farm2global/img/farmers images**. We have prepared pictures with required specifications for you to test.
 13. After Updating the profile, you can navigate other tabs such as View Crops, Add Crops.
 14. Intitially, View Crops will show you empty crops as you did not create/add crop to the Database
 15. To add one, from the menu Click **Add Crop** and for testing purpose put "coffee" as crop name and fill all other remaining fields. Currently we have coffee as functional crop name, pages for others crops are still being developed. The reason why we request you to use coffee only for testing purpose.
