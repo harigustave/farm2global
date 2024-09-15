@@ -52,7 +52,7 @@
 10. To register as a farmer, click on **Account Register** and put all details required. **N.B:** Due to time constraint, we did not implement the validation of phone number and national ID during this step. If you test it, it might not pass.
   **N.B:** In addition, note down the phone number and password used while registering because they will be used to login
 11. To login as a farmer, Click on **Account Login** and enter the correct **Phone number** and **Password**
-12. Once on farmers dashboard, we recommend to update your profile picture first, as it will be used while showing your farming information globally. 
+12. Once on farmers dashboard, we recommend to update your profile picture first via **UPDATE PROFILE** tab, as it will be used while showing your farming information globally. 
    **N.B:** We recomend using jpg picture of size 360x450. If you dont have the picture(s) with mentioned specifications, use the picture in this directory **farm2global/img/farmers images**. We have prepared pictures with required specifications for you to test.
 13. After Updating the profile, you can navigate other tabs such as View Crops, Add Crops.
 14. Intitially, View Crops will show you empty crops as you did not create/add crop to the Database
