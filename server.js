@@ -14,6 +14,8 @@ client.connect()
 const express = require('express')
 const session = require('express-session')
 const app = express()
+const dotenv = require('dotenv');
+dotenv.config();
 const bcrypt = require('bcrypt')
 const multer = require('multer');
 const fs = require('fs');
@@ -494,6 +496,6 @@ app.get('/logout', (req, res) => {
 })
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on http://localhost:${process.env.PORT}`)
 })
