@@ -34,8 +34,6 @@ app.use(
   })
 )
 
-const port = 2000
-
 app.use(express.static('views'))
 app.set('view engine', 'ejs')
 
