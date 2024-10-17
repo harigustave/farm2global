@@ -2,11 +2,11 @@ const { Client } = require('pg')
 
 //DB configurations
 const client = new Client({
-  user: 'postgres',
-  password: 'rwanda',
-  host: 'localhost',
-  port: '5432',
-  database: 'farm2global'
+  user: 'doadmin',
+  password: 'AVNS_XAvmQBo_eoZwP9cL5qb',
+  host: 'db-postgresql-fra1-81238-do-user-18067024-0.e.db.ondigitalocean.com',
+  port: '25060',
+  database: 'defaultdb'
 })
 
 client.connect()
