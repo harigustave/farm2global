@@ -387,6 +387,568 @@ app.get('/cotton', (req, rest) => {
   }
 })
 
+// Search Cotton Farmers endpoint
+app.post('/cotton', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="COTTON"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('cotton.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('cotton.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Maize Farmers endpoint
+app.get('/maize', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'MAIZE'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('maize.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('maize.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Maize Farmers endpoint
+app.post('/maize', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="MAIZE"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('maize.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('maize.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Sunflower Farmers endpoint
+app.get('/sunflower', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'SUNFLOWER'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('sunflower.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('sunflower.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Sunflower Farmers endpoint
+app.post('/sunflower', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="SUNFLOWER"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('sunflower.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('sunflower.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Groundnuts Farmers endpoint
+app.get('/groundnuts', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'GROUNDNUTS'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('groundnuts.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('groundnuts.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Groundnuts Farmers endpoint
+app.post('/groundnuts', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="GROUNDNUTS"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('groundnuts.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('groundnuts.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Soybean Farmers endpoint
+app.get('/soybean', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'SOYBEAN'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('soybean.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('soybean.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Soybean Farmers endpoint
+app.post('/soybean', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="SOYBEAN"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('soybean.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('soybean.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Rice Farmers endpoint
+app.get('/rice', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'RICE'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('rice.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('rice.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Rice Farmers endpoint
+app.post('/rice', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="RICE"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('rice.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('rice.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Wheat Farmers endpoint
+app.get('/wheat', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'WHEAT'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('wheat.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('wheat.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Wheat Farmers endpoint
+app.post('/wheat', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="WHEAT"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('wheat.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('wheat.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Tea Farmers endpoint
+app.get('/tea', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'TEA'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('tea.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('tea.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Tea Farmers endpoint
+app.post('/tea', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="TEA"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('tea.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('tea.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Display all Fruits Farmers endpoint
+app.get('/fruits', (req, rest) => {
+  crops = undefined
+  try {
+    cropname = 'FRUITS'
+    query = 'SELECT * FROM crops WHERE cropname = $1'
+    client.query(query, [cropname], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('fruits.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('You do not have crops in our Database')
+          rest.render('fruits.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
+// Search Fruits Farmers endpoint
+app.post('/fruits', (req, rest) => {
+  crops = undefined
+  try {
+    cropname="FRUITS"
+    country = req.body.search_country
+    country = country.toUpperCase()
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
+    client.query(query, [cropname,country], (err, res) => {
+      if (err) {
+        console.error('Error executing query', err.stack)
+      } else {
+        if (res.rowCount > 0) {
+          for(let i=0;i<(res.rows).length;i++){
+            res.rows[i].image_data=res.rows[i].image_data.toString('base64')
+          }
+          req.session.crops = res.rows
+          crops = req.session.crops
+          rest.render('fruits.ejs', { crops })
+        } else {
+          req.session.crops = res.rows
+          crops = req.session.crops
+          user = req.session.loggedInUser
+          console.log('We do not have ',cropname,' farmers in ',country)
+          rest.render('fruits.ejs', { crops })
+        }
+      }
+    })
+  } catch (e) {
+    console.log(e)
+    rest.redirect('/index')
+  }
+})
+
 // Testimonials endpoint
 app.get('/testimonial', (req, res) => {
   res.render('testimonial.ejs')
