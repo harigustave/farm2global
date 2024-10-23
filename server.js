@@ -49,7 +49,7 @@ app.post('/signup', async (req, res) => {
     firstname = req.body.firstname.toUpperCase()
     lastname = req.body.lastname.toUpperCase()
     phonenumber = req.body.phonenumber
-    country = req.body.country.toUpperCase()
+    district = req.body.district.toUpperCase()
     nid = req.body.nid
     MOSIPUIN='4259643861'
     const query =
@@ -59,7 +59,7 @@ app.post('/signup', async (req, res) => {
       lastname,
       phonenumber,
       hashedpassword,
-      country,
+      district,
       nid,
       MOSIPUIN
     ]
@@ -173,7 +173,7 @@ app.post('/addcrop', (req, res) => {
     lastname = req.session.loggedInUser.lastname
     fullname = firstname + ' ' + lastname
 
-    country = req.session.loggedInUser.country
+    district = req.session.loggedInUser.country
     seasons = req.body.season
     croname = req.body.cpname.toUpperCase()
     seasonqty = req.body.qty
@@ -197,7 +197,7 @@ app.post('/addcrop', (req, res) => {
             mimetype=reslt.rows[0].mime_type
 
             const query = 'INSERT INTO crops(ownercontact, ownername, country, cropname, harvestseasons, qtyperseason, image_data, mime_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)'
-            const values = [contact, fullname, country, croname, seasons, seasonqty, image, mimetype]
+            const values = [contact, fullname, district, croname, seasons, seasonqty, image, mimetype]
   
             client.query(query, values, (err, res) => {
               if (err) {
@@ -294,8 +294,11 @@ app.get('/coffee', (req, rest) => {
   crops = undefined
   try {
     cropname = 'COFFEE'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -305,13 +308,19 @@ app.get('/coffee', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('coffee.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('coffee.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('coffee.ejs', { crops })
+          rest.render('coffee.ejs', { crops, page, totalPages})
         }
       }
     })
@@ -326,10 +335,13 @@ app.post('/coffee', (req, rest) => {
   crops = undefined
   try {
     cropname="COFFEE"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -339,13 +351,19 @@ app.post('/coffee', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('coffee.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('coffee.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('coffee.ejs', { crops })
+          rest.render('coffee.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -360,8 +378,11 @@ app.get('/cotton', (req, rest) => {
   crops = undefined
   try {
     cropname = 'COTTON'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -371,13 +392,19 @@ app.get('/cotton', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('cotton.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('cotton.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('cotton.ejs', { crops })
+          rest.render('cotton.ejs', { crops, page, totalPages})
         }
       }
     })
@@ -392,10 +419,13 @@ app.post('/cotton', (req, rest) => {
   crops = undefined
   try {
     cropname="COTTON"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -405,13 +435,19 @@ app.post('/cotton', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('cotton.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('cotton.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('cotton.ejs', { crops })
+          rest.render('cotton.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -426,8 +462,11 @@ app.get('/maize', (req, rest) => {
   crops = undefined
   try {
     cropname = 'MAIZE'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -437,13 +476,19 @@ app.get('/maize', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('maize.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('maize.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('maize.ejs', { crops })
+          rest.render('maize.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -458,10 +503,13 @@ app.post('/maize', (req, rest) => {
   crops = undefined
   try {
     cropname="MAIZE"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -471,13 +519,19 @@ app.post('/maize', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('maize.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('maize.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('maize.ejs', { crops })
+          rest.render('maize.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -492,8 +546,11 @@ app.get('/sunflower', (req, rest) => {
   crops = undefined
   try {
     cropname = 'SUNFLOWER'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -503,13 +560,19 @@ app.get('/sunflower', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('sunflower.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('sunflower.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages = 1;
           console.log('You do not have crops in our Database')
-          rest.render('sunflower.ejs', { crops })
+          rest.render('sunflower.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -524,10 +587,13 @@ app.post('/sunflower', (req, rest) => {
   crops = undefined
   try {
     cropname="SUNFLOWER"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -537,13 +603,19 @@ app.post('/sunflower', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('sunflower.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('sunflower.ejs', { crops, page, totalPages });
+          });
         } else {
-          req.session.crops = res.rows
-          crops = req.session.crops
-          user = req.session.loggedInUser
-          console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('sunflower.ejs', { crops })
+          req.session.crops = res.rows;
+          crops = req.session.crops;
+          user = req.session.loggedInUser;
+          const totalPages=1;
+          console.log('We do not have ',cropname,' farmers in ',country);
+          rest.render('sunflower.ejs', { crops, page, totalPages });
         }
       }
     })
@@ -558,8 +630,11 @@ app.get('/groundnuts', (req, rest) => {
   crops = undefined
   try {
     cropname = 'GROUNDNUTS'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -569,13 +644,19 @@ app.get('/groundnuts', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('groundnuts.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('groundnuts.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('groundnuts.ejs', { crops })
+          rest.render('groundnuts.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -590,10 +671,13 @@ app.post('/groundnuts', (req, rest) => {
   crops = undefined
   try {
     cropname="GROUNDNUTS"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -603,13 +687,19 @@ app.post('/groundnuts', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('groundnuts.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('groundnuts.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('groundnuts.ejs', { crops })
+          rest.render('groundnuts.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -619,13 +709,17 @@ app.post('/groundnuts', (req, rest) => {
   }
 })
 
+
 // Display all Soybean Farmers endpoint
 app.get('/soybean', (req, rest) => {
   crops = undefined
   try {
     cropname = 'SOYBEAN'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -635,13 +729,19 @@ app.get('/soybean', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('soybean.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('soybean.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('soybean.ejs', { crops })
+          rest.render('soybean.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -656,10 +756,13 @@ app.post('/soybean', (req, rest) => {
   crops = undefined
   try {
     cropname="SOYBEAN"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -669,13 +772,19 @@ app.post('/soybean', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('soybean.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('soybean.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('soybean.ejs', { crops })
+          rest.render('soybean.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -690,8 +799,11 @@ app.get('/rice', (req, rest) => {
   crops = undefined
   try {
     cropname = 'RICE'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -701,13 +813,19 @@ app.get('/rice', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('rice.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('rice.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('rice.ejs', { crops })
+          rest.render('rice.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -722,10 +840,13 @@ app.post('/rice', (req, rest) => {
   crops = undefined
   try {
     cropname="RICE"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -735,13 +856,19 @@ app.post('/rice', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('rice.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('rice.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('rice.ejs', { crops })
+          rest.render('rice.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -756,8 +883,11 @@ app.get('/wheat', (req, rest) => {
   crops = undefined
   try {
     cropname = 'WHEAT'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -767,13 +897,19 @@ app.get('/wheat', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('wheat.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('wheat.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('wheat.ejs', { crops })
+          rest.render('wheat.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -788,10 +924,13 @@ app.post('/wheat', (req, rest) => {
   crops = undefined
   try {
     cropname="WHEAT"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -801,13 +940,19 @@ app.post('/wheat', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('wheat.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('wheat.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('wheat.ejs', { crops })
+          rest.render('wheat.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -822,8 +967,11 @@ app.get('/tea', (req, rest) => {
   crops = undefined
   try {
     cropname = 'TEA'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -833,13 +981,19 @@ app.get('/tea', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('tea.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('tea.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('tea.ejs', { crops })
+          rest.render('tea.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -854,10 +1008,13 @@ app.post('/tea', (req, rest) => {
   crops = undefined
   try {
     cropname="TEA"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -867,13 +1024,19 @@ app.post('/tea', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('tea.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('tea.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('tea.ejs', { crops })
+          rest.render('tea.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -888,8 +1051,11 @@ app.get('/fruits', (req, rest) => {
   crops = undefined
   try {
     cropname = 'FRUITS'
-    query = 'SELECT * FROM crops WHERE cropname = $1'
-    client.query(query, [cropname], (err, res) => {
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    const query = 'SELECT * FROM crops WHERE cropname = $1 LIMIT $2 OFFSET $3';
+    client.query(query, [cropname, limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -899,13 +1065,19 @@ app.get('/fruits', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('fruits.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1';
+          client.query(totalCropsQuery, [cropname], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('fruits.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
           user = req.session.loggedInUser
+          const totalPages=1;
           console.log('You do not have crops in our Database')
-          rest.render('fruits.ejs', { crops })
+          rest.render('fruits.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -920,10 +1092,13 @@ app.post('/fruits', (req, rest) => {
   crops = undefined
   try {
     cropname="FRUITS"
-    country = req.body.search_country
+    const page = parseInt(req.query.page) || 1; // Get the page from query params, default to 1
+    const limit = 15; // Items per page
+    const offset = (page - 1) * limit; // Calculate the offset
+    country = req.body.search_district
     country = country.toUpperCase()
-    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2'
-    client.query(query, [cropname,country], (err, res) => {
+    query = 'SELECT * FROM crops WHERE cropname = $1 AND country = $2 LIMIT $3 OFFSET $4'
+    client.query(query, [cropname,country,limit, offset], (err, res) => {
       if (err) {
         console.error('Error executing query', err.stack)
       } else {
@@ -933,13 +1108,19 @@ app.post('/fruits', (req, rest) => {
           }
           req.session.crops = res.rows
           crops = req.session.crops
-          rest.render('fruits.ejs', { crops })
+          const totalCropsQuery = 'SELECT COUNT(*) FROM crops WHERE cropname = $1 AND country = $2';
+          client.query(totalCropsQuery, [cropname,country], (err, countResult) => {
+            const totalCrops = parseInt(countResult.rows[0].count);
+            const totalPages = Math.ceil(totalCrops / limit);
+            rest.render('fruits.ejs', { crops, page, totalPages });
+          });
         } else {
           req.session.crops = res.rows
           crops = req.session.crops
+          const totalPages=1;
           user = req.session.loggedInUser
           console.log('We do not have ',cropname,' farmers in ',country)
-          rest.render('fruits.ejs', { crops })
+          rest.render('fruits.ejs', { crops, page, totalPages })
         }
       }
     })
@@ -949,9 +1130,9 @@ app.post('/fruits', (req, rest) => {
   }
 })
 
-// Testimonials endpoint
-app.get('/testimonial', (req, res) => {
-  res.render('testimonial.ejs')
+// Partners endpoint
+app.get('/partners', (req, res) => {
+  res.render('partners.ejs')
 })
 
 // Signup get endpoint
