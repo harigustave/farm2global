@@ -2,11 +2,11 @@ const { Client } = require('pg')
 
 //DB configurations
 const client = new Client({
-  user: 'doadmin',
-  password: 'AVNS_XAvmQBo_eoZwP9cL5qb',
-  host: 'db-postgresql-fra1-81238-do-user-18067024-0.e.db.ondigitalocean.com',
-  port: '25060',
-  database: 'defaultdb',
+  user: 'admin_user',
+  password: 'Rwanda1990!!',
+  host: 'farmz2global-db.postgres.database.azure.com',
+  port: '5432',
+  database: 'postgres',
   ssl: {
     rejectUnauthorized: false  // Disable certificate verification (or configure properly in production)
   }
