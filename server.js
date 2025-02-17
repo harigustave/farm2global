@@ -15,6 +15,7 @@ const client = new Client({
 client.connect()
 
 const express = require('express')
+const nodemailer = require("nodemailer");
 const session = require('express-session')
 const app = express()
 const dotenv = require('dotenv');
@@ -41,6 +42,34 @@ app.use(express.urlencoded({ extended: false }))
 
 // Use memory storage for storing the image in memory
 const upload = multer({ storage: multer.memoryStorage() }); 
+
+//send enquiry email to farmer
+app.post("/send-message", async (req, res) => {
+  const { farmerName, phoneNumber, message } = req.body;
+
+  const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+          user: "higustave@gmail.com",
+          pass: "prgowpjpyhhyztcg"
+      }
+  });
+
+  const mailOptions = {
+      from: "higustave@gmail.com",
+      to: "higustave@gmail.com",
+      subject: "New Farmer Inquiry",
+      text: `Farmer Name: ${farmerName}\nPhone Number: ${phoneNumber}\nMessage: ${message}`
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      res.json({ success: true });
+  } catch (error) {
+      console.error(error);
+      res.json({ success: false });
+  }
+});
 
 // Signup endpoint
 app.post('/signup', async (req, res) => {

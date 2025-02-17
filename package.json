@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "start" : "node server.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.10.0",
     "openid-client": "^5.7.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
