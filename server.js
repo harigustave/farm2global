@@ -38,7 +38,10 @@ app.use(
 app.use(express.static('views'))
 app.set('view engine', 'ejs')
 
-app.use(express.urlencoded({ extended: false }))
+// app.use(express.urlencoded({ extended: false }))
+
+app.use(express.json()); // Middleware to parse JSON
+app.use(express.urlencoded({ extended: true })); // Middleware to parse form 
 
 // Use memory storage for storing the image in memory
 const upload = multer({ storage: multer.memoryStorage() }); 
